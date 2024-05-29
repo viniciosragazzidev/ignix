@@ -5,7 +5,7 @@ import Image from "next/image";
 import step1 from "@/shared/assets/images/step1.gif";
 import step2 from "@/shared/assets/images/step2.gif";
 import step3New from "@/shared/assets/images/step3New.gif";
-import step3Exist from "@/shared/assets/images/step3Exist.gif";
+import step3Exist from "@/shared/assets/images/Step3Exist.gif";
 import StepsFormController from "./steps-form-controller";
 import { BiLoader } from "react-icons/bi";
 import { useRouter } from "next/navigation";
