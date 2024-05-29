@@ -21,23 +21,6 @@ enum AppRole {
   BILLING
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String
-  surname       String?
-  image         String?
-  email         String    @unique
-  password      String?   @default(cuid())
-  role          AppRole   @default(VISITOR)
-  emailVerified DateTime?
-
-  Account       Account[]
-  Session       Session[]
-  Authenticator Authenticator[]
-
-  @@map("users")
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -90,4 +73,59 @@ model Authenticator {
   user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  surname       String?
+  image         String?
+  email         String    @unique
+  password      String?   @default(cuid())
+  role          AppRole   @default(VISITOR)
+  emailVerified DateTime?
+
+  // Relacionamentos
+  createdCompanies Company[] @relation("Creator")
+  companies        Company[] @relation("CompanyUsers")
+
+  Account       Account[]
+  Session       Session[]
+  Authenticator Authenticator[]
+  CompanyUser   CompanyUser[]
+
+  @@map("users")
+}
+
+model Company {
+  id          String    @id @default(cuid())
+  name        String
+  cnpj        String
+  address     String
+  city        String
+  state       String
+  email       String
+  phone       String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  deletedAt   DateTime?
+  deletedById String?
+
+  // Relacionamentos
+  creatorId   String
+  creator     User          @relation("Creator", fields: [creatorId], references: [id])
+  users       User[]        @relation("CompanyUsers")
+  CompanyUser CompanyUser[]
+
+  @@map("companies")
+}
+
+model CompanyUser {
+  userId    String
+  companyId String
+  user      User    @relation(fields: [userId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id])
+
+  @@id([userId, companyId])
+  @@map("company_users")
 }
