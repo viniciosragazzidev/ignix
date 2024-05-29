@@ -9,7 +9,6 @@ export default function Home() {
   const [state, formAction] = useActionState(increment, 0);
   return (
     <form>
-      {state}
       <button formAction={formAction}>Increment</button>
     </form>
   );
