@@ -82,19 +82,36 @@ model User {
   image         String?
   email         String    @unique
   password      String?   @default(cuid())
-  role          AppRole   @default(VISITOR)
   emailVerified DateTime?
+  role          AppRole   @default(VISITOR)
 
-  // Relacionamentos
-  createdCompanies Company[] @relation("Creator")
-  companies        Company[] @relation("CompanyUsers")
-
+  profile       ProfileUser?    @relation
   Account       Account[]
   Session       Session[]
   Authenticator Authenticator[]
-  CompanyUser   CompanyUser[]
 
   @@map("users")
+}
+
+model ProfileUser {
+  id        String   @id @default(cuid())
+  name      String
+  surname   String
+  email     String   @unique
+  image     String
+  birthdate DateTime
+  gender    String
+  cpf       String
+  address   String
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdCompanies Company[]     @relation("Creator")
+  companies        Company[]     @relation("CompanyUsers")
+  CompanyUser      CompanyUser[]
+
+  @@map("profile_users")
 }
 
 model Company {
@@ -113,19 +130,19 @@ model Company {
 
   // Relacionamentos
   creatorId   String
-  creator     User          @relation("Creator", fields: [creatorId], references: [id])
-  users       User[]        @relation("CompanyUsers")
+  creator     ProfileUser   @relation("Creator", fields: [creatorId], references: [id])
+  users       ProfileUser[] @relation("CompanyUsers")
   CompanyUser CompanyUser[]
 
   @@map("companies")
 }
 
 model CompanyUser {
-  userId    String
+  profileId String
   companyId String
-  user      User    @relation(fields: [userId], references: [id])
-  company   Company @relation(fields: [companyId], references: [id])
+  user      ProfileUser @relation(fields: [profileId], references: [id])
+  company   Company     @relation(fields: [companyId], references: [id])
 
-  @@id([userId, companyId])
+  @@id([profileId, companyId])
   @@map("company_users")
 }
