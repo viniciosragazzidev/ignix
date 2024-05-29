@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0 0;
+
+    --foreground: 179 0% 90%;
+    --card: 179 0% 0%;
+    --card-foreground: 179 0% 90%;
+    --popover: 179 10% 5%;
+    --popover-foreground: 179 0% 90%;
+    --primary: 179 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 179 10% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 141 10% 15%;
+    --muted-foreground: 179 0% 60%;
+    --accent: 141 10% 15%;
+    --accent-foreground: 179 0% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 179 0% 90%;
+    --border: 179 20% 18%;
+    --input: 179 100% 3.38%;
+    --ring: 179 100% 50%;
+    --radius: 0.5rem;
+
+    --app: 179 100% 50%;
+    --app-secondary: 179 100% 59%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+  @apply border-primary;
+  background-color: transparent !important;
+}
+
+.card:hover + .card,
+.card:hover ~ .card {
+  transform: scale(0.95);
+}
+
+@keyframes ping {
+  75%,
+  95% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
