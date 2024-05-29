@@ -1,7 +1,10 @@
 import db from "@/services/db";
-import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(response: NextResponse, request: NextRequest) {
-  const users = await db.user.findMany();
-  return new Response(JSON.stringify(users), { status: 200 });
+import { NextResponse, NextRequest } from "next/server";
+export async function GET(request: NextRequest, response: NextResponse) {
+  try {
+    const users = await db.user.findMany();
+    return NextResponse.json({ users: users, status: 200 });
+  } catch (error) {
+    NextResponse.json({ error: "Algo deu errado!", status: 500 });
+  }
 }
