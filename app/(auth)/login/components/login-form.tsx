@@ -1,17 +1,12 @@
 "use client";
 
-import Logo from "@/shared/components/Logo";
 import LoginWithGoogleButton from "@/shared/components/login-with-google";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import {
-  QuestionMarkCircledIcon,
-  QuestionMarkIcon,
-} from "@radix-ui/react-icons";
+
 import { Link } from "next-view-transitions";
 import React from "react";
-import { FaGoogle } from "react-icons/fa6";
 
 const LoginForm = () => {
   return (

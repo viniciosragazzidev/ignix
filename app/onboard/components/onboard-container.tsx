@@ -2,10 +2,10 @@
 import { Suspense, use, useEffect, useState } from "react";
 import StepsViewer from "./steps-cursor-viewer";
 import Image from "next/image";
-import step1 from "@/shared/assets/images/step1.gif";
-import step2 from "@/shared/assets/images/step2.gif";
-import step3New from "@/shared/assets/images/step3New.gif";
-import step3Exist from "@/shared/assets/images/Step3Exist.gif";
+import step1 from "@/public/images/step1.gif";
+import step2 from "@/public/images/step2.gif";
+import step3new from "@/public/images/step3new.gif";
+import step3exist from "@/public/images/step3exist.gif";
 import StepsFormController from "./steps-form-controller";
 import { BiLoader } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -27,13 +27,14 @@ const OnboardContainer = ({ user }: { user: any }) => {
     //   router.push("/");
     // }
     setCurrentOnboardStep(2);
+    console.log(stepModeIngress);
 
     if (userData && !userData.company) {
       setCurrentOnboardStep(2);
     }
 
     return;
-  }, [userData]);
+  }, [userData, stepModeIngress]);
   return (
     <>
       {currentOnboardStep ? (
@@ -65,7 +66,7 @@ const OnboardContainer = ({ user }: { user: any }) => {
                   />
                 </div>
               </>
-            ) : user ? (
+            ) : user && currentOnboardStep === 2 ? (
               <>
                 <header className="flex flex-col gap-2 max-lg:hidden">
                   <h1 className="text-3xl font-bold">
@@ -108,7 +109,7 @@ const OnboardContainer = ({ user }: { user: any }) => {
                     </header>
                     <div className="max-w-sm relative mt-2 overflow-hidden h-[360px]  max-lg:hidden  self-center">
                       <Image
-                        src={step3New}
+                        src={step3new}
                         alt="onboard"
                         width={1920}
                         height={1920}
@@ -129,7 +130,7 @@ const OnboardContainer = ({ user }: { user: any }) => {
                     </header>
                     <div className="max-w-sm relative mt-2 overflow-hidden h-[360px]  max-lg:hidden  self-center">
                       <Image
-                        src={step3Exist}
+                        src={step3exist}
                         alt="onboard"
                         width={1920}
                         height={1920}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Ignix from "@/shared/assets/images/ignix.svg";
+import ignix from "@/public/images/ignix.svg";
 import Image from "next/image";
 interface LogoProps {
   mode?: "simple" | "withText";
@@ -11,7 +11,7 @@ const Logo = ({ mode = "simple", size }: LogoProps) => {
   return (
     <span>
       <Image
-        src={Ignix}
+        src={ignix}
         width={size === "large" ? 64 : size === "medium" ? 42 : 32}
         alt="Ignix Logo"
       />

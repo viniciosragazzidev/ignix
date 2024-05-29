@@ -8,7 +8,6 @@ import { BsEnvelopeSlash } from "react-icons/bs";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import OrderInviteAction from "./actions/action";
-import { useRouter } from "next/navigation";
 
 const AreaInputInviteEmail = ({ setSend }: { setSend: any }) => {
   const [state = { errors: [], OrderInvite: null }, submitAction, isPending] =
