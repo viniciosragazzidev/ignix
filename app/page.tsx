@@ -1,15 +1,9 @@
-"use client";
-import { useActionState } from "react";
+import { auth } from "@/services/auth";
 
-async function increment(previousState: any, formData: any) {
-  return previousState + 1;
-}
+export default async function Home() {
+  const session = await auth();
 
-export default function Home() {
-  const [state, formAction] = useActionState(increment, 0);
-  return (
-    <form>
-      <button formAction={formAction}>Increment</button>
-    </form>
-  );
+  console.log(session);
+
+  return <h1>Ignix</h1>;
 }

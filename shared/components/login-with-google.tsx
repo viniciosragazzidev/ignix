@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 const LoginWithGoogleButton = () => {
   return (
     <Button
-      onClick={() => signIn("google", { callbackUrl: "/" })}
+      onClick={() => signIn("google", { callbackUrl: "/app" })}
       variant={"outline"}
       className="w-full rounded-xl flex items-center gap-2  hover:text-accent-foreground hover:bg-transparent hover:border-primary/50 "
     >
