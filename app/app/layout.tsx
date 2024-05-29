@@ -14,7 +14,7 @@ export default async function AppLayout({
   if (session) {
     const data = await getCurrentProfile({ id: session!.user.id });
     const profile = data.data;
-    if (profile.error) {
+    if (profile) {
       redirect("/onboard");
     }
   }
