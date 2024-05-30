@@ -14,7 +14,9 @@ const StepModeInvite = ({
   return (
     <>
       {send ? (
-        <InputInviteCodeContainer />
+        <InputInviteCodeContainer
+          setCurrentOnboardStep={stepCurrentOnboardStep}
+        />
       ) : (
         <AreaInputInviteEmail
           setCurrentOnboardStep={stepCurrentOnboardStep}
