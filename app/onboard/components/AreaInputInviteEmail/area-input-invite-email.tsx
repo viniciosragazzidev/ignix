@@ -3,13 +3,19 @@
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import React, { useActionState, useEffect } from "react";
-import { BiLoader, BiSend } from "react-icons/bi";
+import { BiArrowBack, BiLoader, BiSend } from "react-icons/bi";
 import { BsEnvelopeSlash } from "react-icons/bs";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import OrderInviteAction from "./actions/action";
 
-const AreaInputInviteEmail = ({ setSend }: { setSend: any }) => {
+const AreaInputInviteEmail = ({
+  setSend,
+  setCurrentOnboardStep,
+}: {
+  setSend: any;
+  setCurrentOnboardStep: any;
+}) => {
   const [state = { errors: [], OrderInvite: null }, submitAction, isPending] =
     useActionState(OrderInviteAction, {
       errors: [],
@@ -23,7 +29,7 @@ const AreaInputInviteEmail = ({ setSend }: { setSend: any }) => {
     }
   }, [state.OrderInvite]);
   return (
-    <div className="flex flex-col text-center items-center  gap-6 max-w-xl fadeIn">
+    <div className="flex flex-col text-center items-center  relative gap-6 max-w-xl fadeIn">
       <header className="flex flex-col gap-1 text-center items-center">
         <span className="text-6xl text-primary max-lg:self-center lg:mb-4">
           <BsEnvelopeSlash />
@@ -60,6 +66,14 @@ const AreaInputInviteEmail = ({ setSend }: { setSend: any }) => {
           <span className="opacity-0">.</span>
         </span>
       </form>
+      <Button
+        onClick={() => setCurrentOnboardStep(2)}
+        className=" rounded-xl  self-end absolute top-[-100px] left-0"
+        variant={"outline"}
+        type="button"
+      >
+        <BiArrowBack />
+      </Button>
     </div>
   );
 };

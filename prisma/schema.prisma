@@ -98,11 +98,12 @@ model ProfileUser {
   name      String
   surname   String
   email     String   @unique
-  image     String
+  image     String?
   birthdate DateTime
   gender    String
   cpf       String
-  address   String
+  phone     String
+  address   String?
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

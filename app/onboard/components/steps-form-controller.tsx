@@ -8,19 +8,24 @@ const StepsFormController = ({
   stepModeIngress,
   setCurrentOnboardStep,
   setStepModeIngress,
+  profile,
   user,
 }: {
   currentOnboardStep: number;
   setCurrentOnboardStep?: any;
   stepModeIngress: string;
   setStepModeIngress?: any;
+  profile: any;
   user: any;
 }) => {
   return (
     <div className="w-full h-full flex  items-center justify-center">
-      {!user ? (
-        <FormProfile setCurrentOnboardStep={setCurrentOnboardStep} />
-      ) : user && currentOnboardStep === 2 ? (
+      {!profile ? (
+        <FormProfile
+          user={user}
+          setCurrentOnboardStep={setCurrentOnboardStep}
+        />
+      ) : profile && currentOnboardStep === 2 ? (
         <SelectModeIngress
           setStepModeIngress={setStepModeIngress}
           setCurrentOnboardStep={setCurrentOnboardStep}
@@ -29,9 +34,12 @@ const StepsFormController = ({
       ) : (
         <>
           {stepModeIngress === "new" ? (
-            <FormCreateCompany setCurrentOnboardStep={setCurrentOnboardStep} />
+            <FormCreateCompany
+              profile={profile}
+              setCurrentOnboardStep={setCurrentOnboardStep}
+            />
           ) : (
-            <StepModeInvite />
+            <StepModeInvite stepCurrentOnboardStep={currentOnboardStep} />
           )}
         </>
       )}

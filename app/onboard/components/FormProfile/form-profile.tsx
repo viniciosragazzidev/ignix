@@ -7,11 +7,21 @@ import React, { use, useActionState, useEffect } from "react";
 import profileAction from "./actions/action";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select";
 interface FormProfileProps {
   setCurrentOnboardStep: any;
+  user: any;
 }
+import { toast } from "sonner";
 
-const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
+const FormProfile = ({ setCurrentOnboardStep, user }: FormProfileProps) => {
   const [state = { errors: [], profile: null }, submitAction, isPending] =
     useActionState(profileAction, {
       errors: [],
@@ -25,11 +35,6 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
   const birthdateErrors: any = findErrors("birthdate", state.errors);
   const genderErrors: any = findErrors("gender", state.errors);
 
-  useEffect(() => {
-    if (state.profile) {
-      setCurrentOnboardStep(2);
-    }
-  }, [state.profile]);
   return (
     <div className="flex flex-col text-start gap-6">
       <header className="flex flex-col gap-1">
@@ -51,6 +56,7 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
             <Input
               id="name"
               type="text"
+              defaultValue={user?.name.split(" ")[0]}
               name="name"
               placeholder="Insira seu nome"
               className="w-full rounded-xl"
@@ -63,6 +69,7 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
             <Input
               id="surname"
               type="text"
+              defaultValue={user?.name.split(" ")[1]}
               name="surname"
               placeholder="Insira seu sobrenome"
               className="w-full rounded-xl"
@@ -86,14 +93,21 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="gender">Gênero</Label>
-            <Input
-              id="gender"
+            <Select
               name="gender"
-              type="text"
-              placeholder="Insira seu gênero"
-              className="w-full rounded-xl"
-            />
-
+              required
+            >
+              <SelectTrigger className="w-full rounded-xl">
+                <SelectValue placeholder="Selecione..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="Masculino">Masculino</SelectItem>
+                  <SelectItem value="Feminino">Feminino</SelectItem>
+                  <SelectItem value="Outro">Outro</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <ErrorMessages errors={genderErrors} />
           </div>
           <div className="flex flex-col gap-2">
@@ -101,7 +115,7 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
             <Input
               id="birthdate"
               name="birthdate"
-              type="text"
+              type="date"
               className="w-full rounded-xl"
             />
 
@@ -116,6 +130,7 @@ const FormProfile = ({ setCurrentOnboardStep }: FormProfileProps) => {
               id="email"
               type="email"
               name="email"
+              defaultValue={user?.email}
               placeholder="Insira seu email"
               className="w-full rounded-xl"
             />

@@ -1,5 +1,7 @@
 "use server";
 
+import { createProfile } from "@/shared/lib/requsitions";
+import { setHibrid } from "@/shared/providers/HibridToast";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -23,13 +25,18 @@ export default async function profileAction(_prevState: any, params: FormData) {
     email: params.get("email"),
     phone: params.get("phone"),
   });
-
   if (validation.success) {
-    const profile = await sendProfile();
-    revalidatePath("/onboard");
+    const profile = await createProfile({
+      ...validation.data,
+      birthdate: new Date(validation.data.birthdate),
+    });
+    setHibrid({
+      type: "success",
+      message: "Seu perfil foi criado com sucesso!",
+    });
 
     return {
-      profile: profile,
+      profile: profile.profile,
     };
   } else {
     console.log(validation.error.issues);
@@ -38,10 +45,3 @@ export default async function profileAction(_prevState: any, params: FormData) {
     };
   }
 }
-
-const sendProfile = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  return {
-    name: "Ola",
-  };
-};

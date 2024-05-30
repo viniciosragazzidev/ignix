@@ -4,11 +4,15 @@ import React from "react";
 import { BsEnvelopeCheck } from "react-icons/bs";
 import { InputCodeInvite } from "./input-invite-code";
 import { Button } from "@/shared/components/ui/button";
-import { BiSend } from "react-icons/bi";
+import { BiArrowBack, BiSend } from "react-icons/bi";
 
-const AreaInviteCode = () => {
+const AreaInviteCode = ({
+  setCurrentOnboardStep,
+}: {
+  setCurrentOnboardStep: any;
+}) => {
   return (
-    <div className="flex flex-col text-center items-center  gap-6 max-w-xl opacity-0 fadeIn">
+    <div className="flex flex-col text-center items-center relative  gap-6 max-w-xl opacity-0 fadeIn">
       <header className="flex flex-col gap-1 text-center items-center">
         <span className="text-6xl text-primary max-lg:self-center lg:mb-4">
           <BsEnvelopeCheck />
@@ -32,6 +36,14 @@ const AreaInviteCode = () => {
       <span className="text-xs text-muted-foreground">
         Você receberá o código de acesso por e-mail assim que for aprovado.
       </span>
+      <Button
+        onClick={() => setCurrentOnboardStep(2)}
+        className=" rounded-xl  self-end absolute top-[-100px] left-0"
+        variant={"outline"}
+        type="button"
+      >
+        <BiArrowBack />
+      </Button>
     </div>
   );
 };

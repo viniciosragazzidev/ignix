@@ -9,7 +9,13 @@ import step3exist from "@/public/images/step3exist.gif";
 import StepsFormController from "./steps-form-controller";
 import { BiLoader } from "react-icons/bi";
 import { useRouter } from "next/navigation";
-const OnboardContainer = ({ profileData }: { profileData: any }) => {
+const OnboardContainer = ({
+  profileData,
+  user,
+}: {
+  profileData: any;
+  user: any;
+}) => {
   const data: any = use(profileData);
   const profile = data.profile;
   const [currentOnboardStep, setCurrentOnboardStep] = useState<number | null>(
@@ -19,13 +25,11 @@ const OnboardContainer = ({ profileData }: { profileData: any }) => {
 
   const router = useRouter();
   useEffect(() => {
-    console.log(profile);
-
     if (!profile) {
       setCurrentOnboardStep(1);
     }
 
-    if (profile && !profile.company) {
+    if (profile && profile.CompanyUser.length === 0) {
       setCurrentOnboardStep(2);
     }
 
@@ -142,7 +146,8 @@ const OnboardContainer = ({ profileData }: { profileData: any }) => {
             <StepsFormController
               currentOnboardStep={currentOnboardStep}
               setCurrentOnboardStep={setCurrentOnboardStep}
-              user={profile}
+              profile={profile}
+              user={user}
               stepModeIngress={stepModeIngress}
               setStepModeIngress={setStepModeIngress}
             />

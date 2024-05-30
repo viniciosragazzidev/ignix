@@ -5,10 +5,6 @@ export const getCurrentProfile = async ({ id }: { id: string }) => {
     headers: {
       "Content-Type": "application/json",
     },
-    next: {
-      revalidate: 1000,
-      tags: ["profile"],
-    },
   });
   const data = await response.json();
   return data;

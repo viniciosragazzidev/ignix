@@ -13,8 +13,8 @@ export default async function AppLayout({
 
   if (session) {
     const data = await getCurrentProfile({ id: session!.user.id });
-    const profile = data.data;
-    if (!profile) {
+    const profile = data.profile;
+    if (!profile || profile?.CompanyUser?.length === 0) {
       redirect("/onboard");
     }
   }

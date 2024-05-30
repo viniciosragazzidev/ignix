@@ -12,6 +12,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  ...authConfig,
   callbacks: {
     async session({ session, token, user }) {
       if (token) {
@@ -46,5 +47,4 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/login",
   },
-  ...authConfig,
 });

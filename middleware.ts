@@ -18,9 +18,7 @@ export const middleware = async (
   if (req.nextUrl.pathname.split("/").includes("app") && !session) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
-
-  console.log(req.nextUrl.pathname.split("/"));
 };
 export const config = {
-  matcher: ["/login", "/app/:path*"],
+  matcher: ["/login", "/app/:path*", "/onboard"],
 };

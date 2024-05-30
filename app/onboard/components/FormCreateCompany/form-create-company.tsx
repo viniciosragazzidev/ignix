@@ -8,12 +8,14 @@ import CompanyAction from "./actions/action";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import { useRouter } from "next/navigation";
-import { BiLoader } from "react-icons/bi";
+import { BiArrowBack, BiLoader } from "react-icons/bi";
 
 const FormCreateCompany = ({
   setCurrentOnboardStep,
+  profile,
 }: {
   setCurrentOnboardStep: any;
+  profile: TypeProfileUser;
 }) => {
   const [state = { errors: [], Company: null }, submitAction, isPending] =
     useActionState(CompanyAction, {
@@ -22,7 +24,7 @@ const FormCreateCompany = ({
 
   const nameErrors: any = findErrors("name", state.errors);
   const cnpjErrors: any = findErrors("cnpj", state.errors);
-  const andressErrors: any = findErrors("andress", state.errors);
+  const addressErrors: any = findErrors("address", state.errors);
   const cityErrors: any = findErrors("city", state.errors);
   const stateErrors: any = findErrors("state", state.errors);
   const emailErrors: any = findErrors("email", state.errors);
@@ -35,7 +37,7 @@ const FormCreateCompany = ({
     }
   }, [state.Company]);
   return (
-    <div className="flex flex-col text-start gap-6">
+    <div className="flex flex-col text-start gap-6 relative">
       <header className="flex flex-col gap-1">
         <h1 className="text-[22px] lg:text-3xl font-bold flex items-baseline gap-1">
           Informações da Empresa
@@ -76,15 +78,15 @@ const FormCreateCompany = ({
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
           <div className="flex flex-col gap-2 col-span-2">
-            <Label htmlFor="andress">Endereço</Label>
+            <Label htmlFor="address">Endereço</Label>
             <Input
-              id="andress"
+              id="address"
               type="text"
-              name="andress"
+              name="address"
               placeholder="Endereço da empresa"
               className="w-full rounded-xl"
             />
-            <ErrorMessages errors={andressErrors} />
+            <ErrorMessages errors={addressErrors} />
           </div>
           <div className="flex flex-col gap-2 col-span-1">
             <Label htmlFor="city">Cidade</Label>
@@ -142,7 +144,14 @@ const FormCreateCompany = ({
               className="w-full rounded-xl"
             />
           </div>
+          <input
+            type="text"
+            className="opacity-0 absolute top-[-9999px]"
+            name="profileId"
+            value={profile.id}
+          />
         </div>
+
         <Button
           className="w-full rounded-xl max-w-[120px] text-muted self-end"
           variant={"default"}
@@ -157,6 +166,14 @@ const FormCreateCompany = ({
           )}
         </Button>
       </form>
+      <Button
+        onClick={() => setCurrentOnboardStep(2)}
+        className=" rounded-xl  self-end absolute top-[-100px] left-0"
+        variant={"outline"}
+        type="button"
+      >
+        <BiArrowBack />
+      </Button>
     </div>
   );
 };

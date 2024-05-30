@@ -11,7 +11,13 @@ export default {
   ],
   callbacks: {
     async session({ session, token, user }) {
-      session.user.id = token.userId;
+      if (token) {
+        (session.user.id = token.userId),
+          (session.user.name = token.name),
+          (session.user.email = token.email! as string),
+          (session.user.image = token.picture),
+          (session.user.role = token.role);
+      }
       return session;
     },
   },
