@@ -64,7 +64,7 @@ const FormProfile = ({ setCurrentOnboardStep, user }: FormProfileProps) => {
 
             <ErrorMessages errors={nameErrors} />
           </div>
-          <div className="  sm:col-span-1 gap-2">
+          <div className="sm:col-span-1 gap-2">
             <Label htmlFor="surname">Sobrenome</Label>
             <Input
               id="surname"
