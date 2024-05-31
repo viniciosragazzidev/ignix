@@ -2,6 +2,7 @@
 
 import { createCompany } from "@/shared/lib/requsitions";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
@@ -24,19 +25,23 @@ export default async function CompanyAction(_prevState: any, params: FormData) {
     email: params.get("email"),
     phone: params.get("phone"),
   });
-  const profileId = params.get("profileId");
+  const userId = params.get("userId");
   if (validation.success) {
     const Company = await createCompany({
       ...validation.data,
     });
 
-    revalidatePath("/onboard");
+ if( Company){
+    revalidatePath("/onboard/");
+    redirect(`/app/${Company.company.slugId}`);
+   }
+    
 
     return {
       Company: Company,
     };
   } else {
-    console.log(validation.error.issues);
+    //console.log(validation.error.issues);
     return {
       errors: validation.error.issues,
     };

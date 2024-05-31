@@ -17,7 +17,11 @@ export default {
           (session.user.email = token.email! as string),
           (session.user.image = token.picture),
           (session.user.role = token.role);
+          (session.user.CompanyUser = token.CompanyUser);
+          (session.user.companies = token.companies);
       }
+
+      
       return session;
     },
   },

@@ -8,9 +8,9 @@ export async function GET(
   const { userId } = params;
 
   try {
-    const profile = await db.profileUser.findUnique({
+    const user = await db.user.findUnique({
       where: {
-        userId: userId,
+        id: userId,
       },
       include: {
         companies: true,
@@ -18,10 +18,10 @@ export async function GET(
       },
     });
 
-    if (profile) {
-      return NextResponse.json({ profile: profile, status: 200 });
+    if (user) {
+      return NextResponse.json({ user: user, status: 200 });
     } else {
-      return NextResponse.json({ error: "Profile not found", status: 500 });
+      return NextResponse.json({ error: "user not found", status: 500 });
     }
   } catch (error) {
     return NextResponse.json({

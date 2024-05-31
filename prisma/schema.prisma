@@ -84,40 +84,25 @@ model User {
   password      String?   @default(cuid())
   emailVerified DateTime?
   role          AppRole   @default(VISITOR)
-
-  profile       ProfileUser?    @relation
+birthdate DateTime?
+  gender    String?
+  cpf       String?
+  phone     String?
+  address   String?
   Account       Account[]
   Session       Session[]
   Authenticator Authenticator[]
+  createdCompanies Company[] @relation("Creator")
+  companies      Company[]   @relation("CompanyUsers")
+  CompanyUser    CompanyUser[]
 
   @@map("users")
-}
-
-model ProfileUser {
-  id        String   @id @default(cuid())
-  name      String
-  surname   String
-  email     String   @unique
-  image     String?
-  birthdate DateTime
-  gender    String
-  cpf       String
-  phone     String
-  address   String?
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdCompanies Company[]     @relation("Creator")
-  companies        Company[]     @relation("CompanyUsers")
-  CompanyUser      CompanyUser[]
-
-  @@map("profile_users")
 }
 
 model Company {
   id          String    @id @default(cuid())
   name        String
+  slugId      String    @map("slug_id")
   cnpj        String
   address     String
   city        String
@@ -131,19 +116,19 @@ model Company {
 
   // Relacionamentos
   creatorId   String
-  creator     ProfileUser   @relation("Creator", fields: [creatorId], references: [id])
-  users       ProfileUser[] @relation("CompanyUsers")
+  creator     User   @relation("Creator", fields: [creatorId], references: [id])
+  users       User[] @relation("CompanyUsers")
   CompanyUser CompanyUser[]
 
   @@map("companies")
 }
 
 model CompanyUser {
-  profileId String
+  userId String
   companyId String
-  user      ProfileUser @relation(fields: [profileId], references: [id])
-  company   Company     @relation(fields: [companyId], references: [id])
+  user      User @relation(fields: [userId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id])
 
-  @@id([profileId, companyId])
+  @@id([userId, companyId])
   @@map("company_users")
 }

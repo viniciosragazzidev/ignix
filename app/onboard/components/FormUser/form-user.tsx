@@ -3,8 +3,8 @@
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import React, { use, useActionState, useEffect } from "react";
-import profileAction from "./actions/action";
+import React, { useActionState } from "react";
+import userAction from "./actions/action";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import {
@@ -15,15 +15,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
-interface FormProfileProps {
+interface FormUserProps {
   setCurrentOnboardStep: any;
   user: any;
 }
 import { toast } from "sonner";
 
-const FormProfile = ({ setCurrentOnboardStep, user }: FormProfileProps) => {
-  const [state = { errors: [], profile: null }, submitAction, isPending] =
-    useActionState(profileAction, {
+const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
+  const [state = { errors: [], user: null }, submitAction, isPending] =
+    useActionState(userAction, {
       errors: [],
     });
 
@@ -163,4 +163,4 @@ const FormProfile = ({ setCurrentOnboardStep, user }: FormProfileProps) => {
   );
 };
 
-export default FormProfile;
+export default FormUser;

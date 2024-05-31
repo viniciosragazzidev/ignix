@@ -1,6 +1,6 @@
 "use server";
 
-import { createProfile } from "@/shared/lib/requsitions";
+import { createUser } from "@/shared/lib/requsitions";
 import { setHibrid } from "@/shared/providers/HibridToast";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -15,7 +15,7 @@ const schema = z.object({
   phone: z.string().min(1, "Telefone não pode ser vazio"),
 });
 
-export default async function profileAction(_prevState: any, params: FormData) {
+export default async function userAction(_prevState: any, params: FormData) {
   const validation = schema.safeParse({
     name: params.get("name"),
     surname: params.get("surname"),
@@ -26,7 +26,7 @@ export default async function profileAction(_prevState: any, params: FormData) {
     phone: params.get("phone"),
   });
   if (validation.success) {
-    const profile = await createProfile({
+    const user = await createUser({
       ...validation.data,
       birthdate: new Date(validation.data.birthdate),
     });
@@ -36,10 +36,10 @@ export default async function profileAction(_prevState: any, params: FormData) {
     });
 
     return {
-      profile: profile.profile,
+      user: user,
     };
   } else {
-    console.log(validation.error.issues);
+    //console.log(validation.error.issues);
     return {
       errors: validation.error.issues,
     };

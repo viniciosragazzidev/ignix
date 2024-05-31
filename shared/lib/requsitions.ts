@@ -1,56 +1,59 @@
 "use server";
 
-import { getCurrentProfile } from "@/app/app/actions/action";
 import { auth } from "@/services/auth";
 import { revalidatePath } from "next/cache";
 const currentUrl = process.env.NEXT_PUBLIC_APP_URL;
 
-export const createProfile = async (data: any) => {
+export const createUser = async (data: any) => {
   const session = await auth();
   const userId = session?.user.id;
 
+  const userUpdatedData = {
+    id:userId,
+    ...data
+  }
+
+  console.log(userUpdatedData);
+  
+
   try {
-    const profile = await fetch(`${currentUrl}/api/profile/create`, {
-      method: "POST",
+    const user = await fetch(`${currentUrl}/api/users/create`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        userId,
-        ...data,
-      }),
+      body: JSON.stringify( userUpdatedData),
     });
 
-    const profileData = await profile.json();
+    const userData = await user.json();
 
     revalidatePath("/onboard");
-    return profileData;
+    return userData;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 export const createCompany = async (data: any) => {
   const session = await auth();
-  const profile = await getCurrentProfile({ id: session!.user.id });
-  const profileId = profile?.profile.id;
+  const user =  session?.user
+  const userId = user?.id;
   try {
-    const profile = await fetch(`${currentUrl}/api/companies/create`, {
+    const company = await fetch(`${currentUrl}/api/companies/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        creatorId: profileId,
+        creatorId: userId,
 
         ...data,
       }),
     });
 
-    const profileData = await profile.json();
-
-    revalidatePath("/onboard");
-    return profileData;
+    const companyData = await company.json();
+    
+    return companyData;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };

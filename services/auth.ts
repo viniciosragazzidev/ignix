@@ -1,8 +1,10 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import authConfig from "./auth.config";
 import db from "./db";
+import { cookies } from "next/headers";
+import { TypeUser } from "@/shared/@types";
 
 const prisma = new PrismaClient();
 
@@ -21,27 +23,50 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           (session.user.email = token.email! as string),
           (session.user.image = token.picture),
           (session.user.role = token.role);
+          (session.user.CompanyUser = token.CompanyUser);
+          (session.user.companies = token.companies);
+
+          (session.user.cpf = token.cpf);
       }
       return session;
     },
     async jwt({ token, user }) {
-      const dbUser = await db.user.findFirst({
+      const userData:any = await db.user.findFirst({
         where: {
           email: token.email!,
         },
+        include: {
+          CompanyUser: true,
+          companies: true
+        }
       });
-      if (!dbUser) {
+      if (!userData) {
         token.id = user!.id;
         return null;
       }
       const data = {
-        userId: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-        role: dbUser.role,
+        userId: userData.id,
+        name: userData.name,
+        email: userData.email,
+        picture: userData.image,
+        role: userData.role,
+        CompanyUser : userData.CompanyUser,
+        companies : userData.companies,
+        cpf: userData.cpf
       };
       return data;
+    },
+    async signIn({ user }) {
+      const dbUser = await db.user.findUnique({
+        where: {
+          email: user.email!,
+        },
+      });
+     if(dbUser){
+
+       cookies().set("loggedUserId", dbUser.id, { path: "/" });
+     }
+      return true;
     },
   },
   pages: {

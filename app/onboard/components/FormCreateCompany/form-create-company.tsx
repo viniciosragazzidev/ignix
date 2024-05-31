@@ -10,12 +10,25 @@ import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import { useRouter } from "next/navigation";
 import { BiArrowBack, BiLoader } from "react-icons/bi";
 
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/shared/components/ui/dialog"
+import loadingCreateCompany from "@/public/images/loadingCreateCompany.svg";
+import Image from "next/image";
+import { TypeUser } from "@/shared/@types";
+
+
 const FormCreateCompany = ({
   setCurrentOnboardStep,
-  profile,
+  user,
 }: {
   setCurrentOnboardStep: any;
-  profile: TypeProfileUser;
+  user: TypeUser;
 }) => {
   const [state = { errors: [], Company: null }, submitAction, isPending] =
     useActionState(CompanyAction, {
@@ -147,8 +160,8 @@ const FormCreateCompany = ({
           <input
             type="text"
             className="opacity-0 absolute top-[-9999px]"
-            name="profileId"
-            value={profile.id}
+            name="userId"
+            value={user.id}
           />
         </div>
 
@@ -174,6 +187,30 @@ const FormCreateCompany = ({
       >
         <BiArrowBack />
       </Button>
+
+      <Dialog open={isPending}>
+  <DialogContent className="flex flex-col justify-center items-center text-center w-max">
+    <DialogHeader className=" flex flex-col justify-center items-center" >
+    <span className="animate-spin text-5xl text-primary an-spin ">
+      <BiLoader />
+    </span>
+      <DialogTitle>Estamos configurando seu perfil...</DialogTitle>
+      <DialogDescription>
+        Aguarde, isso pode levar alguns instantes.
+      </DialogDescription>
+    </DialogHeader>
+    <Image
+                    src={loadingCreateCompany}
+                    alt="onboard"
+                    className="max-w-52"
+                    width={1920}
+                    height={1920}
+                  />
+
+
+  </DialogContent>
+</Dialog>
+
     </div>
   );
 };

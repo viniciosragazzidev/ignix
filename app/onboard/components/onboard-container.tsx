@@ -6,18 +6,17 @@ import step1 from "@/public/images/step1.gif";
 import step2 from "@/public/images/step2.gif";
 import step3new from "@/public/images/step3new.gif";
 import step3exist from "@/public/images/step3exist.gif";
+
+
 import StepsFormController from "./steps-form-controller";
 import { BiLoader } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 const OnboardContainer = ({
-  profileData,
-  user,
+  user
 }: {
-  profileData: any;
   user: any;
 }) => {
-  const data: any = use(profileData);
-  const profile = data.profile;
+ 
   const [currentOnboardStep, setCurrentOnboardStep] = useState<number | null>(
     null
   );
@@ -25,22 +24,24 @@ const OnboardContainer = ({
 
   const router = useRouter();
   useEffect(() => {
-    if (!profile) {
+    //console.log(user);
+    
+    if (user.cpf === null) {
       setCurrentOnboardStep(1);
     }
 
-    if (profile && profile.CompanyUser.length === 0) {
+    if (user.cpf && user.CompanyUser.length === 0) {
       setCurrentOnboardStep(2);
     }
 
     return;
-  }, [profile, stepModeIngress]);
+  }, [user, stepModeIngress]);
   return (
     <>
       {currentOnboardStep ? (
         <div className="flex max-lg:flex-col  w-full h-full overflow-x-hidden ">
           <div className="flex-1 h-full max-w-xl bg-[#010303]  p-6 px-8  flex-col justify-center flex  max-lg:hidden ">
-            {!profile ? (
+            {!user.cpf ? (
               <>
                 <header className="flex flex-col gap-2 max-lg:hidden">
                   <h1 className="text-3xl font-bold">
@@ -66,7 +67,7 @@ const OnboardContainer = ({
                   />
                 </div>
               </>
-            ) : profile && currentOnboardStep === 2 ? (
+            ) : user.cpf && currentOnboardStep === 2 ? (
               <>
                 <header className="flex flex-col gap-2 max-lg:hidden">
                   <h1 className="text-3xl font-bold">
@@ -146,7 +147,6 @@ const OnboardContainer = ({
             <StepsFormController
               currentOnboardStep={currentOnboardStep}
               setCurrentOnboardStep={setCurrentOnboardStep}
-              profile={profile}
               user={user}
               stepModeIngress={stepModeIngress}
               setStepModeIngress={setStepModeIngress}

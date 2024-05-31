@@ -53,6 +53,15 @@ input:-webkit-autofill:active {
   transform: scale(0.95);
 }
 
+.an-spin {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin{
+  to {transform:rotate(360deg);}
+
+}
+
 @keyframes ping {
   75%,
   95% {
