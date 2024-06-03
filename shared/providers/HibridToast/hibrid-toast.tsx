@@ -13,7 +13,7 @@ export function HibridToaster() {
   );
 }
 
-export function setHibrid(hibrid: {
+export async function  setHibrid(hibrid: {
   type: "success" | "error" | "signin" | "signout";
   message: string;
   random?: string;
@@ -22,4 +22,6 @@ export function setHibrid(hibrid: {
     path: "/",
     expires: Date.now(),
   });
+
+  return hibrid;
 }

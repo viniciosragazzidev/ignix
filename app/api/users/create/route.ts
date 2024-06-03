@@ -3,13 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(request: NextRequest) {
   const body = await request.json();
- 
-  
+
   try {
- 
     const updateUser = await db.user.update({
       where: {
-        id:  body.id,
+        id: body.id,
       },
       data: {
         name: body.name,
@@ -19,15 +17,14 @@ export async function PUT(request: NextRequest) {
         birthdate: new Date(body.birthdate),
         email: body.email,
         phone: body.phone,
-
       },
-    })
+    });
     return NextResponse.json({ user: updateUser, status: 200 });
   } catch (error) {
     //console.log(error);
 
     return NextResponse.json({
-      error: "Ops, something went wrong",
+      error: error,
       status: 500,
     });
   }

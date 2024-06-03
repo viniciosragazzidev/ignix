@@ -20,6 +20,7 @@ interface FormUserProps {
   user: any;
 }
 import { toast } from "sonner";
+import { BiLoader } from "react-icons/bi";
 
 const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
   const [state = { errors: [], user: null }, submitAction, isPending] =
@@ -156,7 +157,7 @@ const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
           variant={"default"}
           type="submit"
         >
-          {isPending ? "Carregando..." : "Enviar"}
+          {isPending ? <BiLoader className="animate-spin" />: "Enviar"}
         </Button>
       </form>
     </div>

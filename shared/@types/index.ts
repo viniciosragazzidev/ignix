@@ -17,11 +17,12 @@ export type TypeUser = {
 };
 
 enum AppRole {
-  VISITOR = 'VISITOR',
-  MEMBER = 'MEMBER',
-  ADMIN = 'ADMIN',
-  OWNER = 'OWNER',
-  BILLING = 'BILLING'
+  VISITOR = "VISITOR",
+  MEMBER = "MEMBER",
+  MANAGER = "MANAGER",
+  ADMIN = "ADMIN",
+  OWNER = "OWNER",
+  BILLING = "BILLING",
 }
 
 export type TypeAccount = {
@@ -87,6 +88,7 @@ export type TypeCompany = {
 
 export type TypeCompanyUser = {
   profileId: string;
+  slugId: string;
   companyId: string;
   user: TypeUser;
   company: TypeCompany;

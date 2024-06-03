@@ -2,6 +2,7 @@
 
 import { createUser } from "@/shared/lib/requsitions";
 import { setHibrid } from "@/shared/providers/HibridToast";
+import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -30,14 +31,23 @@ export default async function userAction(_prevState: any, params: FormData) {
       ...validation.data,
       birthdate: new Date(validation.data.birthdate),
     });
-    setHibrid({
-      type: "success",
-      message: "Seu perfil foi criado com sucesso!",
-    });
-
-    return {
-      user: user,
-    };
+    if (user.error.name === "PrismaClientKnownRequestError") {
+      setHibrid({
+        type: "error",
+        message: "Outro usuário já foi criado utilizando essas informações!",
+      });
+      return {
+        error: "Outro usuário já foi criado utilizando essas informações!",
+      };
+    } else {
+      setHibrid({
+        type: "success",
+        message: "Seu perfil foi criado com sucesso!",
+      });
+      return {
+        user: user,
+      };
+    }
   } else {
     //console.log(validation.error.issues);
     return {

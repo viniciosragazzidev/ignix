@@ -3,8 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const slugId = body.name.replace(/\s+/g, "-").toLowerCase() + "-" + Math.random().toString(36).substr(2, 5);
+  const slugId =
+    body.name.replace(/\s+/g, "-").toLowerCase() +
+    "-" +
+    Math.random().toString(36).substr(2, 5);
   try {
+    const user = await db.user.update({
+      where: {
+        id: body.creatorId,
+      },
+      data: {
+        role: "ADMIN",
+      },
+    });
     const company = await db.company.create({
       data: {
         address: body.address,
@@ -14,7 +25,7 @@ export async function POST(request: NextRequest) {
         name: body.name,
         phone: body.phone,
         state: body.state,
-        slugId:  slugId,
+        slugId: slugId,
         creator: {
           connect: {
             id: body.creatorId,
@@ -31,7 +42,27 @@ export async function POST(request: NextRequest) {
     const companyUser = await db.companyUser.create({
       data: {
         companyId: company.id,
+        companyName: company.name,
+        slugId: company.slugId,
         userId: body.creatorId,
+      },
+    });
+
+    const companyUnitHead = await db.companyUnit.create({
+      data: {
+        name: "Sede",
+        address: body.address,
+        city: body.city,
+        email: body.email,
+        phone: body.phone,
+        slugId: `unit-sede`,
+        state: body.state,
+        companyId: company.id,
+        users: {
+          connect: {
+            id: body.creatorId,
+          },
+        },
       },
     });
 

@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="pt-br">
-        <body className={GeistSans.className}>
+        <body className={`${GeistSans.className} bg-background`}>
           <AppProvider>{children}</AppProvider>
         </body>
       </html>
