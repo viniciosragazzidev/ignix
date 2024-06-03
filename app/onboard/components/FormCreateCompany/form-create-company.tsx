@@ -7,7 +7,7 @@ import React, { useActionState, useEffect } from "react";
 import CompanyAction from "./actions/action";
 import { findErrors } from "@/shared/lib/utils";
 import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
-import { useRouter } from "next/navigation";
+import { permanentRedirect, useRouter } from "next/navigation";
 import { BiArrowBack, BiLoader } from "react-icons/bi";
 
 
@@ -30,9 +30,10 @@ const FormCreateCompany = ({
   setCurrentOnboardStep: any;
   user: TypeUser;
 }) => {
-  const [state = { errors: [], Company: null }, submitAction, isPending] =
+  const [state = { errors: [], Company: [] }, submitAction, isPending] =
     useActionState(CompanyAction, {
-      errors: [],
+      Company: [],
+      // Company: [],
     });
 
   const nameErrors: any = findErrors("name", state.errors);
@@ -43,12 +44,14 @@ const FormCreateCompany = ({
   const emailErrors: any = findErrors("email", state.errors);
   const phoneErrors: any = findErrors("phone", state.errors);
 
-  const router = useRouter();
   useEffect(() => {
-    if (state.Company) {
-      router.push("/");
+    console.log(state);
+    
+    if(state.errors && state.errors.length === 0){
+      permanentRedirect(`/app`);
     }
-  }, [state.Company]);
+    
+  },[state])
   return (
     <div className="flex flex-col text-start gap-6 relative">
       <header className="flex flex-col gap-1">
@@ -189,7 +192,7 @@ const FormCreateCompany = ({
       </Button>
 
       <Dialog open={isPending}>
-  <DialogContent className="flex flex-col justify-center items-center text-center w-max">
+  <DialogContent className="flex flex-col justify-center items-center text-center w-max bg-transparent">
     <DialogHeader className=" flex flex-col justify-center items-center" >
     <span className="animate-spin text-5xl text-primary an-spin ">
       <BiLoader />
@@ -202,7 +205,7 @@ const FormCreateCompany = ({
     <Image
                     src={loadingCreateCompany}
                     alt="onboard"
-                    className="max-w-52"
+                    className="max-w-32 "
                     width={1920}
                     height={1920}
                   />

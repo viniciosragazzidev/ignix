@@ -16,6 +16,7 @@ datasource db {
 enum AppRole {
   VISITOR
   MEMBER
+  MANAGER
   ADMIN
   OWNER
   BILLING
@@ -76,25 +77,26 @@ model Authenticator {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  surname       String?
-  image         String?
-  email         String    @unique
-  password      String?   @default(cuid())
-  emailVerified DateTime?
-  role          AppRole   @default(VISITOR)
-birthdate DateTime?
-  gender    String?
-  cpf       String?
-  phone     String?
-  address   String?
-  Account       Account[]
-  Session       Session[]
-  Authenticator Authenticator[]
-  createdCompanies Company[] @relation("Creator")
-  companies      Company[]   @relation("CompanyUsers")
-  CompanyUser    CompanyUser[]
+  id               String          @id @default(cuid())
+  name             String
+  surname          String?
+  image            String?
+  email            String          @unique
+  password         String?         @default(cuid())
+  emailVerified    DateTime?
+  role             AppRole         @default(VISITOR)
+  birthdate        DateTime?
+  gender           String?
+  cpf              String?
+  phone            String?
+  address          String?
+  Account          Account[]
+  Session          Session[]
+  Authenticator    Authenticator[]
+  createdCompanies Company[]       @relation("Creator")
+  companies        Company[]       @relation("CompanyUsers")
+  CompanyUser      CompanyUser[]
+  units            CompanyUnit[]
 
   @@map("users")
 }
@@ -115,20 +117,40 @@ model Company {
   deletedById String?
 
   // Relacionamentos
-  creatorId   String
-  creator     User   @relation("Creator", fields: [creatorId], references: [id])
-  users       User[] @relation("CompanyUsers")
-  CompanyUser CompanyUser[]
+  creatorId String
+  creator   User          @relation("Creator", fields: [creatorId], references: [id])
+  users     User[]        @relation("CompanyUsers")
+  units     CompanyUnit[]
 
   @@map("companies")
 }
 
 model CompanyUser {
-  userId String
-  companyId String
-  user      User @relation(fields: [userId], references: [id])
-  company   Company @relation(fields: [companyId], references: [id])
+  userId      String
+  companyName String
+  companyId   String
+  slugId      String @map("slug_id")
+  user        User   @relation(fields: [userId], references: [id])
 
   @@id([userId, companyId])
   @@map("company_users")
+}
+
+model CompanyUnit {
+  id      String @id @default(cuid())
+  name    String
+  address String
+  city    String
+  state   String
+  email   String
+  phone   String
+
+  companyId   String
+  company     Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  users       User[]
+  slugId      String    @map("slug_id")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  deletedAt   DateTime?
+  deletedById String?
 }

@@ -13,7 +13,7 @@ export async function GET(
         id: userId,
       },
       include: {
-        companies: true,
+        units: true,
         createdCompanies: true,
       },
     });

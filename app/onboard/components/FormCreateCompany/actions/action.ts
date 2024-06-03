@@ -1,6 +1,7 @@
 "use server";
 
 import { createCompany } from "@/shared/lib/requsitions";
+import { setHibrid } from "@/shared/providers/HibridToast";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -34,12 +35,12 @@ export default async function CompanyAction(_prevState: any, params: FormData) {
  if( Company){
     revalidatePath("/onboard/");
     redirect(`/app/${Company.company.slugId}`);
-   }
-    
-
     return {
       Company: Company,
     };
+   }
+    return
+
   } else {
     //console.log(validation.error.issues);
     return {

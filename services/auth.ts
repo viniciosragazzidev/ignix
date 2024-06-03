@@ -23,22 +23,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           (session.user.email = token.email! as string),
           (session.user.image = token.picture),
           (session.user.role = token.role);
-          (session.user.CompanyUser = token.CompanyUser);
-          (session.user.companies = token.companies);
-
-          (session.user.cpf = token.cpf);
+        session.user.CompanyUser = token.CompanyUser;
+        session.user.units = token.units;
+        session.user.cpf = token.cpf;
       }
       return session;
     },
     async jwt({ token, user }) {
-      const userData:any = await db.user.findFirst({
+      const userData: any = await db.user.findFirst({
         where: {
           email: token.email!,
         },
         include: {
           CompanyUser: true,
-          companies: true
-        }
+          units: true,
+        },
       });
       if (!userData) {
         token.id = user!.id;
@@ -50,9 +49,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         email: userData.email,
         picture: userData.image,
         role: userData.role,
-        CompanyUser : userData.CompanyUser,
-        companies : userData.companies,
-        cpf: userData.cpf
+        CompanyUser: userData.CompanyUser,
+        units: userData.units,
+        cpf: userData.cpf,
       };
       return data;
     },
@@ -62,10 +61,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: user.email!,
         },
       });
-     if(dbUser){
-
-       cookies().set("loggedUserId", dbUser.id, { path: "/" });
-     }
+      if (dbUser) {
+        cookies().set("loggedUserId", dbUser.id, { path: "/" });
+      }
       return true;
     },
   },

@@ -9,12 +9,11 @@ export const createUser = async (data: any) => {
   const userId = session?.user.id;
 
   const userUpdatedData = {
-    id:userId,
-    ...data
-  }
+    id: userId,
+    ...data,
+  };
 
   console.log(userUpdatedData);
-  
 
   try {
     const user = await fetch(`${currentUrl}/api/users/create`, {
@@ -22,7 +21,7 @@ export const createUser = async (data: any) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify( userUpdatedData),
+      body: JSON.stringify(userUpdatedData),
     });
 
     const userData = await user.json();
@@ -30,12 +29,12 @@ export const createUser = async (data: any) => {
     revalidatePath("/onboard");
     return userData;
   } catch (error) {
-    //console.log(error);
+    return error;
   }
 };
 export const createCompany = async (data: any) => {
   const session = await auth();
-  const user =  session?.user
+  const user = session?.user;
   const userId = user?.id;
   try {
     const company = await fetch(`${currentUrl}/api/companies/create`, {
@@ -51,7 +50,7 @@ export const createCompany = async (data: any) => {
     });
 
     const companyData = await company.json();
-    
+
     return companyData;
   } catch (error) {
     //console.log(error);

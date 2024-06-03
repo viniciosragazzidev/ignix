@@ -9,9 +9,9 @@ declare module "next-auth/jwt" {
   interface JWT {
     userId: UserId;
     role: AppRole;
-    CompanyUser: TypeCompanyUser[]
-    companies: TypeCompany[]
-    cpf: string
+    CompanyUser: TypeCompanyUser[];
+    units: any;
+    cpf: string;
   }
 }
 
@@ -20,9 +20,9 @@ declare module "next-auth" {
     user: User & {
       id: UserId;
       role: AppRole;
-      CompanyUser: TypeCompanyUser[]
-      companies: TypeCompany[]
-      cpf: string
+      CompanyUser: TypeCompanyUser[];
+      units: any;
+      cpf: string;
     };
   }
 }
