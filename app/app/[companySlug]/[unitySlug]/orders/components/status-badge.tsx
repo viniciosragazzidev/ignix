@@ -11,6 +11,29 @@ export enum Status {
   CANCELLED = "Cancelado",
 }
 const StatusBadge = ({ status }: { status: Status }) => {
+  const StatusA: any = [
+    {
+      PENDING: "Pendente",
+    },
+    {
+      ANALYZE: "Em analise",
+    },
+    {
+      AWAIT: "Aguardando aprovacao",
+    },
+    {
+      IN_PROGRESS: "Em andamento",
+    },
+    {
+      DELIVERED: "Entregue",
+    },
+    {
+      FINALIZE: "Finalizado",
+    },
+    {
+      CANCELLED: "Cancelado",
+    },
+  ];
   return (
     <Badge
       className="text-sm"
@@ -32,7 +55,7 @@ const StatusBadge = ({ status }: { status: Status }) => {
           : "default"
       }
     >
-      {Status[status]}
+      {StatusA.find((item: any) => item[status])?.[status]}
     </Badge>
   );
 };
