@@ -7,7 +7,7 @@ interface OrdersInfoCardsProps {
   period: any;
 }
 const OrdersInfoCards = ({ orders, period }: OrdersInfoCardsProps) => {
-  const TotalPedidos = orders.orders?.total_items || 0;
+  const TotalPedidos = orders?.total_items || 0;
   const CurrentPeriod = period?.value || "30";
 
   return (

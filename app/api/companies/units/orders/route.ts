@@ -53,6 +53,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         total_items: totalItems,
         items_per_page: itemsPerPage,
         current_page: page,
+        total_pages: Math.ceil(totalItems / itemsPerPage),
         orders,
 
         status: 200,

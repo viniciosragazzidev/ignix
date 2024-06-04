@@ -73,9 +73,24 @@ const Orders = async ({
         orders={orders}
         period={period}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <OrdersTableController orders={orders} />
-      </Suspense>
+      <OrdersTableController
+        action={({
+          page,
+          itemsPerPage,
+        }: {
+          page: string;
+          itemsPerPage: string;
+        }) => {
+          "use server";
+          return getCurrentPageAndItemsPerPage({
+            currentPage: page,
+            itemsPerPage: itemsPerPage,
+          });
+        }}
+        perPage={itemsPerPage?.value}
+        page={page?.value}
+        orders={orders}
+      />
     </div>
   );
 };

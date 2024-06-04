@@ -111,7 +111,7 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                       <span className="font-medium text-muted-foreground">
                         {order.itens[0].model}
                       </span>
-                      <span className="text-xs text-slate-100 cursor-pointer flex items-center gap-1 mr-8 ">
+                      <span className="text-xs text-slate-100 cursor-pointer flex items-center gap-1 mr-8  relative -top-2 ">
                         <BsEye className="text-primary" /> Ver todos
                       </span>
                     </div>

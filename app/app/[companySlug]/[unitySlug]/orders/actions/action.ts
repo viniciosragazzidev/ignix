@@ -23,7 +23,7 @@ export const getOrders = async ({
 
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}`,
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}`,
       {
         method: "GET",
         next: {
