@@ -4,9 +4,13 @@ const currentUrl = process.env.NEXT_PUBLIC_APP_URL;
 export const getOrders = async ({
   period,
   unitySlug,
+  page,
+  itemsPerPage,
 }: {
   period: string;
   unitySlug: string;
+  page: string;
+  itemsPerPage: string;
 }) => {
   const currentUnitId = await db.companyUnit.findFirst({
     where: {
