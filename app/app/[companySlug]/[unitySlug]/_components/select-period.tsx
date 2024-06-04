@@ -12,8 +12,8 @@ import {
 import React from "react";
 
 const SelectPeriod = ({ action, period }: any) => {
-  const [valuePeriod, setValuePeriod] = React.useState(period.value || "30");
-  console.log(period.value);
+  const [valuePeriod, setValuePeriod] = React.useState(period?.value || "30");
+  console.log(period?.value);
 
   const onChange = (e: any) => {
     action({ period: e });
@@ -22,8 +22,8 @@ const SelectPeriod = ({ action, period }: any) => {
   };
   return (
     <Select
-      defaultValue={period.value}
-      value={valuePeriod || period.value}
+      defaultValue={period?.value}
+      value={valuePeriod || period?.value}
       onValueChange={onChange}
     >
       <SelectTrigger className="w-[180px]">
