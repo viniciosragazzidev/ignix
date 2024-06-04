@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         city: body.city,
         email: body.email,
         phone: body.phone,
-        slugId: `unit-sede`,
+        slugId: `${company.name}-sede`,
         state: body.state,
         companyId: company.id,
         users: {

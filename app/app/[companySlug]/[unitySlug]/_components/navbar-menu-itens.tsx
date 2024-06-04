@@ -42,7 +42,11 @@ const NavbarMenuItens = ({
   ];
 
   return (
-    <ul className={`${!params?.unitySlug ? "hidden" : "flex"}  gap-1  w-full `}>
+    <ul
+      className={`${
+        !params?.unitySlug ? "hidden" : "flex"
+      }  gap-1  w-full min-w-sm max-[380px]:overflow-x-auto`}
+    >
       {navbarItens.map((item) => (
         <li
           key={item.label}
@@ -55,7 +59,7 @@ const NavbarMenuItens = ({
           <Link
             key={item.label}
             href={item.path}
-            className="text-sm hover:text-primary "
+            className="text-sm hover:text-primary whitespace-nowrap"
           >
             {item.name}
           </Link>

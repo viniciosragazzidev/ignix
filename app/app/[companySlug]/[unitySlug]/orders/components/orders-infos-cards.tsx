@@ -7,11 +7,13 @@ interface OrdersInfoCardsProps {
   period: any;
 }
 const OrdersInfoCards = ({ orders, period }: OrdersInfoCardsProps) => {
-  const TotalPedidos = orders?.total_items || 0;
+  const TotalPedidos = orders.orders?.total_items || 0;
   const CurrentPeriod = period?.value || "30";
+
   return (
-    <section className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+    <section className="w-full grid max-[340px]:grid-cols-1 grid-cols-2 md:grid-cols-4 gap-5">
       <CardValueInfo
+        className=""
         icon={<FaBox />}
         title="Total de Pedidos"
         value={TotalPedidos}

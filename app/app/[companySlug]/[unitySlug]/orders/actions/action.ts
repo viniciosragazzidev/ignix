@@ -20,9 +20,10 @@ export const getOrders = async ({
       id: true,
     },
   });
+
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}`,
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}`,
       {
         method: "GET",
         next: {

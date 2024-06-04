@@ -15,6 +15,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   const offset = (page - 1) * itemsPerPage;
+
+  console.log();
+
   try {
     const orders = await db.unitOrder.findMany({
       where: {
@@ -27,21 +30,31 @@ export async function GET(req: NextRequest, res: NextResponse) {
           },
         ],
       },
+      include: {
+        client: true,
+        itens: true,
+      },
       orderBy: {
         createdAt: "desc",
       },
       skip: offset,
       take: itemsPerPage,
     });
-    const totalItems = await db.unitOrder.count(); // Correção aqui
+    const totalItems = await db.unitOrder.count({
+      where: {
+        companyUnitId: unitId,
+        createdAt: {
+          gte: new Date(Date.now() - periodInDays * 24 * 60 * 60 * 1000),
+        },
+      },
+    }); // Correção aqui
     if (orders) {
       return NextResponse.json({
-        orders: {
-          total_items: totalItems,
-          items_per_page: itemsPerPage,
-          current_page: page,
-          orders,
-        },
+        total_items: totalItems,
+        items_per_page: itemsPerPage,
+        current_page: page,
+        orders,
+
         status: 200,
       });
     }
