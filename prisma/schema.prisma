@@ -22,6 +22,15 @@ enum AppRole {
   BILLING
 }
 
+enum Status {
+  PENDING
+  ANALIZE
+  AWAIT
+  IN_PROGRESS
+  FINALIZATE
+  CANCELLED
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -97,6 +106,7 @@ model User {
   companies        Company[]       @relation("CompanyUsers")
   CompanyUser      CompanyUser[]
   units            CompanyUnit[]
+  UnitOrder        UnitOrder[]
 
   @@map("users")
 }
@@ -146,11 +156,71 @@ model CompanyUnit {
   phone   String
 
   companyId   String
-  company     Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company     Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
   users       User[]
-  slugId      String    @map("slug_id")
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
+  slugId      String       @map("slug_id")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
   deletedAt   DateTime?
   deletedById String?
+  UnitOrders  UnitOrder[]
+  UnitClients UnitClient[]
+}
+
+model UnitOrder {
+  id     Int         @id @default(autoincrement())
+  client UnitClient  @relation(fields: [unitClientId], references: [id])
+  itens  OrderItem[]
+
+  status           Status  @default(PENDING)
+  orderDescription String?
+  totalAmout       String?
+
+  createdBy User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime  @default(now())
+  editedAt  DateTime?
+
+  CompanyUnit   CompanyUnit? @relation(fields: [companyUnitId], references: [id])
+  companyUnitId String?
+  unitClientId  String
+  userId        String
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  name        String
+  brand       String
+  model       String
+  numberSerie String?
+  color       String?
+
+  status Status @default(PENDING)
+
+  occurrenceDescription String
+  acessories            String[] @default([])
+  images                String[] @default([])
+
+  amountValue        String?
+  garantyDays        String?
+  finallyDescription String?
+
+  createdAt   DateTime   @default(now())
+  editedAt    DateTime?
+  UnitOrder   UnitOrder? @relation(fields: [unitOrderId], references: [id])
+  unitOrderId Int?
+}
+
+model UnitClient {
+  id            String       @id @default(cuid())
+  name          String
+  document      String       @unique
+  address       String
+  city          String
+  state         String
+  email         String
+  phone         String
+  CompanyUnit   CompanyUnit? @relation(fields: [companyUnitId], references: [id])
+  companyUnitId String?
+  UnitOrder     UnitOrder[]
 }

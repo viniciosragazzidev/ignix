@@ -16,18 +16,17 @@ const AreaInputInviteEmail = ({
   setSend: any;
   setCurrentOnboardStep: any;
 }) => {
-  const [state = { errors: [], OrderInvite: null }, submitAction, isPending] =
-    useActionState(OrderInviteAction, {
-      errors: [],
-    });
+  const [result, submitAction, isPending] = useActionState(OrderInviteAction, {
+    errors: [],
+  });
 
-  const emailErrors = findErrors("email", state.errors);
+  const emailErrors = findErrors("email", result.errors);
 
   useEffect(() => {
-    if (state.OrderInvite) {
-      setSend(true);
+    if (result.OrderInvite) {
+      // setSend(true);
     }
-  }, [state.OrderInvite]);
+  }, [result.OrderInvite]);
   return (
     <div className="flex flex-col text-center items-center  relative gap-6 max-w-xl fadeIn">
       <header className="flex flex-col gap-1 text-center items-center">
@@ -35,7 +34,7 @@ const AreaInputInviteEmail = ({
           <BsEnvelopeSlash />
         </span>
         <h1 className="text-[22px] lg:text-3xl font-bold flex items-baseline gap-1">
-          Convite Não Encontrado
+          Convite Não Encontrado {result.OrderInvite?.name}
         </h1>
         <span className="text-sm  text-muted-foreground">
           Insira abaixo o e-mail da empresa que deseja ingressar e{" "}

@@ -18,6 +18,7 @@
     --muted: 141 10% 15%;
     --muted-foreground: 179 0% 60%;
     --accent: #00fffb0d;
+    --accent-medium: #00fffb15;
     --accent-foreground: 179 100% 50%;
     --destructive: 0 50% 30%;
     --destructive-foreground: 179 0% 90%;
@@ -57,9 +58,10 @@ input:-webkit-autofill:active {
   animation: spin 1.5s linear infinite;
 }
 
-@keyframes spin{
-  to {transform:rotate(360deg);}
-
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes ping {

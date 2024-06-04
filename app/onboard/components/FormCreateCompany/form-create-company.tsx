@@ -10,18 +10,17 @@ import { ErrorMessages } from "@/shared/lib/ErrorsMessage";
 import { permanentRedirect, useRouter } from "next/navigation";
 import { BiArrowBack, BiLoader } from "react-icons/bi";
 
-
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/shared/components/ui/dialog"
+} from "@/shared/components/ui/dialog";
 import loadingCreateCompany from "@/public/images/loadingCreateCompany.svg";
 import Image from "next/image";
 import { TypeUser } from "@/shared/@types";
-
+import { toast } from "sonner";
 
 const FormCreateCompany = ({
   setCurrentOnboardStep,
@@ -30,33 +29,33 @@ const FormCreateCompany = ({
   setCurrentOnboardStep: any;
   user: TypeUser;
 }) => {
-  const [state = { errors: [], Company: [] }, submitAction, isPending] =
-    useActionState(CompanyAction, {
-      Company: [],
-      // Company: [],
-    });
+  const [result, submitAction, isPending] = useActionState(CompanyAction, {
+    Company: [],
+    // Company: [],
+  });
 
-  const nameErrors: any = findErrors("name", state.errors);
-  const cnpjErrors: any = findErrors("cnpj", state.errors);
-  const addressErrors: any = findErrors("address", state.errors);
-  const cityErrors: any = findErrors("city", state.errors);
-  const stateErrors: any = findErrors("state", state.errors);
-  const emailErrors: any = findErrors("email", state.errors);
-  const phoneErrors: any = findErrors("phone", state.errors);
+  const nameErrors: any = findErrors("name", result.errors);
+  const cnpjErrors: any = findErrors("cnpj", result.errors);
+  const addressErrors: any = findErrors("address", result.errors);
+  const cityErrors: any = findErrors("city", result.errors);
+  const resultErrors: any = findErrors("result", result.errors);
+  const emailErrors: any = findErrors("email", result.errors);
+  const phoneErrors: any = findErrors("phone", result.errors);
 
   useEffect(() => {
-    console.log(state);
-    
-    if(state.errors && state.errors.length === 0){
-      permanentRedirect(`/app`);
+    if (result.Company && result.Company.company?.name) {
+      toast.success("Empresa criada com sucesso!");
+
+      permanentRedirect(`/app/${result.Company.company.slugId}`);
+    } else if (result.errors) {
+      toast.error("Outra empresa já foi criada utilizando essas informações!");
     }
-    
-  },[state])
+  }, [result]);
   return (
     <div className="flex flex-col text-start gap-6 relative">
       <header className="flex flex-col gap-1">
         <h1 className="text-[22px] lg:text-3xl font-bold flex items-baseline gap-1">
-          Informações da Empresa
+          Informações da Empresa {result.Company?.company?.name}
         </h1>
         <span className="text-sm text-muted-foreground">
           Informe abaixo os dados da empresa que você deseja cadastrar na
@@ -192,28 +191,25 @@ const FormCreateCompany = ({
       </Button>
 
       <Dialog open={isPending}>
-  <DialogContent className="flex flex-col justify-center items-center text-center w-max bg-transparent">
-    <DialogHeader className=" flex flex-col justify-center items-center" >
-    <span className="animate-spin text-5xl text-primary an-spin ">
-      <BiLoader />
-    </span>
-      <DialogTitle>Estamos configurando seu perfil...</DialogTitle>
-      <DialogDescription>
-        Aguarde, isso pode levar alguns instantes.
-      </DialogDescription>
-    </DialogHeader>
-    <Image
-                    src={loadingCreateCompany}
-                    alt="onboard"
-                    className="max-w-32 "
-                    width={1920}
-                    height={1920}
-                  />
-
-
-  </DialogContent>
-</Dialog>
-
+        <DialogContent className="flex flex-col justify-center items-center text-center w-max bg-transparent">
+          <DialogHeader className=" flex flex-col justify-center items-center">
+            <span className="animate-spin text-5xl text-primary an-spin ">
+              <BiLoader />
+            </span>
+            <DialogTitle>Estamos configurando seu perfil...</DialogTitle>
+            <DialogDescription>
+              Aguarde, isso pode levar alguns instantes.
+            </DialogDescription>
+          </DialogHeader>
+          <Image
+            src={loadingCreateCompany}
+            alt="onboard"
+            className="max-w-32 "
+            width={1920}
+            height={1920}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

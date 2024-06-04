@@ -42,20 +42,20 @@ const NavbarMenuItens = ({
   ];
 
   return (
-    <ul className={`${!params?.unitySlug ? "hidden" : "flex"}  gap-3 `}>
+    <ul className={`${!params?.unitySlug ? "hidden" : "flex"}  gap-1  w-full `}>
       {navbarItens.map((item) => (
         <li
           key={item.label}
-          className={`${
+          className={`px-2 py-0.5 rounded-lg ${
             (item.label === pathnameSlice[4] ||
               (item.label === "dashboard" && !pathnameSlice[4])) &&
-            "text-primary font-bold"
-          }}`}
+            "text-primary font-bold bg-accent-medium "
+          }`}
         >
           <Link
             key={item.label}
             href={item.path}
-            className="text-sm hover:text-primary font-medium"
+            className="text-sm hover:text-primary "
           >
             {item.name}
           </Link>

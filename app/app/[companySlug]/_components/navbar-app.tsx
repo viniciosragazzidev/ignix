@@ -8,11 +8,13 @@ const NavbarApp = ({ user }: { user: any }) => {
   return (
     <header className="flex gap-3 justify-between w-full p-5">
       <nav className="flex gap-3 justify-between w-full">
-        <Logo
-          mode="simple"
-          size="small"
-        />
-        <NavbarCrumb user={user} />
+        <div className="flex items-center gap-3">
+          <Logo
+            mode="simple"
+            size="small"
+          />
+          <NavbarCrumb user={user} />
+        </div>
         <div className="flex gap-4">
           <DropdownMenuAvatarProfile user={user} />
           <LogoutButton />

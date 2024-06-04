@@ -31,16 +31,19 @@ export default async function CompanyAction(_prevState: any, params: FormData) {
     const Company = await createCompany({
       ...validation.data,
     });
+    if (Company.error.name === "PrismaClientKnownRequestError") {
+      return {
+        errors: "Outra empresa já foi criada utilizando essas informações!",
+      };
+    }
 
- if( Company){
-    revalidatePath("/onboard/");
-    redirect(`/app/${Company.company.slugId}`);
+    if (Company) {
+      revalidatePath("/onboard/");
+      // redirect(`/app/${Company.company.slugId}`);
+    }
     return {
       Company: Company,
     };
-   }
-    return
-
   } else {
     //console.log(validation.error.issues);
     return {
