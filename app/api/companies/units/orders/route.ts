@@ -29,6 +29,27 @@ export async function GET(req: NextRequest, res: NextResponse) {
             createdAt: {
               gte: new Date(Date.now() - periodInDays * 24 * 60 * 60 * 1000),
             },
+            OR: [
+              {
+                client: {
+                  name: {
+                    contains: search,
+                  },
+                },
+              },
+              {
+                client: {
+                  phone: {
+                    contains: search,
+                  },
+                },
+              },
+              {
+                id: {
+                  equals: Number(search),
+                },
+              },
+            ],
           },
         ],
       },
