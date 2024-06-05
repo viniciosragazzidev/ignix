@@ -35,7 +35,7 @@ const Orders = async ({
     "use server";
     cookies().set("currentPage", currentPage, { path: "/" });
     cookies().set("itemsPerPage", itemsPerPage, { path: "/" });
-    cookies().set("search", search || "", { path: "/" });
+    cookies().set("search", search || "", { path: "/", expires: 0 });
     revalidateTag("orders");
     return { currentPage, itemsPerPage };
   };
@@ -50,7 +50,7 @@ const Orders = async ({
     unitySlug: params?.unitySlug,
     page: page?.value || "1",
     itemsPerPage: itemsPerPage?.value || "10",
-    search: search?.value + "" || "",
+    search: search?.value || "",
   });
 
   return (

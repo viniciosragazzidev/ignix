@@ -57,12 +57,10 @@ const OrdersTableController = ({
 
   // const [search, setSearch] = React.useState("");
   const onChangeInputSearch = (e: any) => {
-    const length = e.target.value.length;
+    // const length = e.target.value.length;
 
     // Verifique se o comprimento é um múltiplo de 4
-    if (length > 0 && length % 2 === 0) {
-      action({ page: "1", itemsPerPage, search: e.target.value });
-    }
+    action({ page: "1", itemsPerPage, search: e.target.value });
   };
 
   return (

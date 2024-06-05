@@ -14,11 +14,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     10
   );
 
-  const search = req.nextUrl.searchParams.get("search")?.toString();
+  const search = decodeURIComponent(
+    req.nextUrl.searchParams.get("search")?.toString() || ""
+  );
+  console.log(search);
 
   const offset = (page - 1) * itemsPerPage;
-
-  console.log();
 
   try {
     const orders = await db.unitOrder.findMany({
@@ -29,11 +30,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
             createdAt: {
               gte: new Date(Date.now() - periodInDays * 24 * 60 * 60 * 1000),
             },
+          },
+          {
             OR: [
+              {
+                client: {
+                  id: {
+                    contains: search,
+                    mode: "insensitive", // Default value: default
+                  },
+                },
+              },
               {
                 client: {
                   name: {
                     contains: search,
+                    mode: "insensitive", // Default value: default
                   },
                 },
               },
@@ -41,12 +53,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
                 client: {
                   phone: {
                     contains: search,
+                    mode: "insensitive", // Default value: default
                   },
                 },
               },
               {
-                id: {
-                  equals: Number(search),
+                itens: {
+                  every: {
+                    name: {
+                      contains: search,
+                      mode: "insensitive", // Default value: default
+                    },
+                  },
                 },
               },
             ],

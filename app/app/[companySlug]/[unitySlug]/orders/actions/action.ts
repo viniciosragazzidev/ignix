@@ -22,14 +22,13 @@ export const getOrders = async ({
       id: true,
     },
   });
-  const searchData = search || "";
+  const searchData = search ? search : "";
+  console.log(searchData, search);
+
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${
-        currentUnitId?.id
-      }&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${
-        searchData.length < 3 ? "" : search
-      }` || "",
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}` ||
+        "",
       {
         method: "GET",
         next: {
