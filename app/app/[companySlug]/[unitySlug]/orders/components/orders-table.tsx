@@ -31,7 +31,7 @@ interface OrdersTableProps {
 const theadItems = ["ID", "Cliente", "Itens", "Entrada", "Status", "Valor", ""];
 const OrdersTable = ({ orders }: OrdersTableProps) => {
   const dataOrders = orders.orders;
-  const orders_formated = dataOrders.map((order: any) => {
+  const orders_formated = dataOrders?.map((order: any) => {
     return {
       id: order.id,
       client: {
@@ -61,10 +61,10 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
   return (
     <div
       className={`flex w-full min-w-[480px] ${
-        dataOrders.length === 0 ? "" : "min-h-[300px]"
+        dataOrders?.length === 0 ? "" : "min-h-[300px]"
       }`}
     >
-      {dataOrders.length > 0 ? (
+      {dataOrders?.length > 0 ? (
         <table className="w-full h-full">
           <thead className="w-full border-b border-primary/5">
             <tr className=" ">

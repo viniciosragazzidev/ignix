@@ -14,6 +14,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     10
   );
 
+  const search = req.nextUrl.searchParams.get("search")?.toString();
+
   const offset = (page - 1) * itemsPerPage;
 
   console.log();

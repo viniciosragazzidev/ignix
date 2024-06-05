@@ -26,9 +26,11 @@ interface OrdersTableControllerProps {
   action: ({
     page,
     itemsPerPage,
+    search,
   }: {
     page: string;
     itemsPerPage: string;
+    search?: string;
   }) => Promise<{ currentPage: string; itemsPerPage: string }>;
 }
 const OrdersTableController = ({
@@ -47,11 +49,22 @@ const OrdersTableController = ({
 
   const [pageState, setPageState] = React.useState(currentPage || "1");
   const [perPageState, setPerPageState] = React.useState(itemsPerPage || "10");
-  const onChange = (e: any, pageChange?: string) => {
-    action({ itemsPerPage: e, page: pageChange || currentPage });
+  const onChange = (e: any, pageChange?: string, search?: string) => {
+    action({ itemsPerPage: e, page: pageChange || currentPage, search });
     setPageState(pageChange || currentPage);
     setPerPageState(e);
   };
+
+  // const [search, setSearch] = React.useState("");
+  const onChangeInputSearch = (e: any) => {
+    const length = e.target.value.length;
+
+    // Verifique se o comprimento é um múltiplo de 4
+    if (length > 0 && length % 2 === 0) {
+      action({ page: "1", itemsPerPage, search: e.target.value });
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col gap-5">
       <div className="flex w-full justify-between">
@@ -69,6 +82,8 @@ const OrdersTableController = ({
           <div className="w-full max-w-sm relative block">
             <BiSearch className="absolute block top-1/2 -translate-y-1/2 left-3 text-primary" />
             <Input
+              onChange={onChangeInputSearch}
+              // value={search}
               placeholder="Pesquisar"
               className="pl-10"
               type="search"

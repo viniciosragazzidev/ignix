@@ -26,14 +26,16 @@ const Orders = async ({
   const getCurrentPageAndItemsPerPage = async ({
     currentPage,
     itemsPerPage,
+    search,
   }: {
     currentPage: string;
     itemsPerPage: string;
+    search?: string;
   }) => {
     "use server";
     cookies().set("currentPage", currentPage, { path: "/" });
     cookies().set("itemsPerPage", itemsPerPage, { path: "/" });
-
+    cookies().set("search", search || "", { path: "/" });
     revalidateTag("orders");
     return { currentPage, itemsPerPage };
   };
@@ -41,12 +43,14 @@ const Orders = async ({
   const period = cookies().get("period");
   const page = cookies().get("currentPage");
   const itemsPerPage = cookies().get("itemsPerPage");
+  const search = cookies().get("search");
 
   const orders = await getOrders({
     period: period?.value || "30",
     unitySlug: params?.unitySlug,
     page: page?.value || "1",
     itemsPerPage: itemsPerPage?.value || "10",
+    search: search?.value + "" || "",
   });
 
   return (
@@ -77,14 +81,17 @@ const Orders = async ({
         action={({
           page,
           itemsPerPage,
+          search,
         }: {
           page: string;
           itemsPerPage: string;
+          search?: string;
         }) => {
           "use server";
           return getCurrentPageAndItemsPerPage({
             currentPage: page,
             itemsPerPage: itemsPerPage,
+            search: search,
           });
         }}
         perPage={itemsPerPage?.value}

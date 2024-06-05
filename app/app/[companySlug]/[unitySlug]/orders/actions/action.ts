@@ -6,11 +6,13 @@ export const getOrders = async ({
   unitySlug,
   page,
   itemsPerPage,
+  search,
 }: {
   period: string;
   unitySlug: string;
   page: string;
   itemsPerPage: string;
+  search?: string;
 }) => {
   const currentUnitId = await db.companyUnit.findFirst({
     where: {
@@ -23,7 +25,7 @@ export const getOrders = async ({
 
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}`,
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${search}`,
       {
         method: "GET",
         next: {
