@@ -14,13 +14,6 @@ export default function HibridToastClient(props: {
 
       if (type === "success" || type === "signin" || type === "signout") {
         toast.success(message);
-        if (type === "signin") {
-          ////console.log("aaa");
-        }
-
-        if (type === "signout") {
-          Router.push("/signin");
-        }
       } else if (type === "error") {
         toast.error(message);
       }
