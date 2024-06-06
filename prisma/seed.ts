@@ -7,14 +7,13 @@ const userId = "clwz4bz6l000eprg2w51l5o5s";
 async function main() {
   const client = await prismaSeed.unitClient.create({
     data: {
-      id: "clwz4e7yf000kprg2mvndps9o", // Use o ID fornecido
-      name: "Client 1",
-      document: "12345678901",
+      name: "Client 11",
+      document: "11000000000",
       address: "123 Main St",
       city: "City Name",
       state: "State Name",
       email: "client@example.com",
-      phone: "1234567890",
+      phone: "21999999999",
       companyUnitId: companyUnitId,
     },
   });
@@ -24,8 +23,9 @@ async function main() {
       client: {
         connect: { id: client.id },
       },
-      orderDescription: "Order description",
-      totalAmout: "100.00",
+      orderDescription: "Order description 10",
+      status: "FINALIZATE",
+      totalAmout: "",
       createdBy: {
         connect: { id: userId },
       },
@@ -35,15 +35,25 @@ async function main() {
     },
   });
 
-  const orderItem = await prismaSeed.orderItem.create({
-    data: {
-      name: "Item 1",
-      brand: "Brand 1",
-      model: "Model 1",
-      status: "PENDING",
-      occurrenceDescription: "Occurrence description",
-      unitOrderId: order.id,
-    },
+  const orderItem = await prismaSeed.orderItem.createMany({
+    data: [
+      {
+        name: "Item 11",
+        brand: "Brand",
+        model: "Model 1",
+        status: "PENDING",
+        occurrenceDescription: "Occurrence description",
+        unitOrderId: order.id,
+      },
+      {
+        name: "Item 2",
+        brand: "Brand 3",
+        model: "Model 1",
+        status: "PENDING",
+        occurrenceDescription: "Occurrence description",
+        unitOrderId: order.id,
+      },
+    ],
   });
 
   console.log({ order, orderItem });

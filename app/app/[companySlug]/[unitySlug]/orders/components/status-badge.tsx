@@ -43,7 +43,6 @@ const StatusBadge = ({ status }: { status: any }) => {
       CANCELLED: "Cancelado",
     },
   ];
-  console.log(status, Status.PENDING);
 
   const currentStatus = StatusA.find((item: any) => item[status])?.[status];
   return (

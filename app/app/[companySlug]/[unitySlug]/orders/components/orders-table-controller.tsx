@@ -47,11 +47,26 @@ const OrdersTableController = ({
   const currentPage = orders.current_page;
   const totalPages = orders.total_pages;
 
-  const [pageState, setPageState] = React.useState(currentPage || "1");
-  const [perPageState, setPerPageState] = React.useState(itemsPerPage || "10");
-  const onChange = (e: any, pageChange?: string, search?: string) => {
-    action({ itemsPerPage: e, page: pageChange || currentPage, search });
-    setPageState(pageChange || currentPage);
+  const [pageState, setPageState] = React.useState(currentPage || 1);
+  const [perPageState, setPerPageState] = React.useState(itemsPerPage || 10);
+  const onChange = ({
+    e = perPageState,
+    page = pageState,
+    search,
+  }: {
+    e?: any;
+    page?: number;
+    search?: string;
+  }) => {
+    const currentPageF = e > totalItems ? 1 : page || currentPage;
+    action({
+      itemsPerPage: e || itemsPerPage,
+      page: currentPageF,
+      search,
+    });
+    console.log(page, e, totalItems, currentPage);
+
+    setPageState(currentPageF);
     setPerPageState(e);
   };
 
@@ -124,9 +139,11 @@ const OrdersTableController = ({
               Itens por página
             </span>
             <Select
-              defaultValue={perPage}
-              value={perPageState < 10 ? "10" : perPageState}
-              onValueChange={onChange}
+              defaultValue={perPageState + "" || "10"}
+              value={perPageState < 10 ? "10" : perPageState + ""}
+              onValueChange={(e) => {
+                onChange({ e });
+              }}
             >
               <SelectTrigger className="w-[80px] text-slate-100">
                 <SelectValue placeholder={10} />
@@ -144,7 +161,7 @@ const OrdersTableController = ({
           </span>
           <div className="flex items-center gap-4">
             <span
-              onClick={() => currentPage > 1 && onChange((page = "1"))}
+              onClick={() => currentPage > 1 && onChange({ page: 1 })}
               className={`p-1 rounded-md bg-muted/30 ${
                 currentPage == 1
                   ? "opacity-40 cursor-default"
@@ -157,7 +174,7 @@ const OrdersTableController = ({
             </span>
             <span
               onClick={() =>
-                currentPage > 1 && onChange((page = pageState - 1 + ""))
+                currentPage > 1 && onChange({ page: pageState - 1 })
               }
               className={`p-1 rounded-md bg-muted/30 ${
                 currentPage == 1
@@ -171,8 +188,7 @@ const OrdersTableController = ({
             </span>
             <span
               onClick={() =>
-                currentPage < totalPages &&
-                onChange((page = pageState + 1 + ""))
+                currentPage < totalPages && onChange({ page: pageState + 1 })
               }
               className={`p-1 rounded-md bg-muted/30 ${
                 currentPage == totalPages
@@ -186,7 +202,7 @@ const OrdersTableController = ({
             </span>
             <span
               onClick={() =>
-                currentPage < totalPages && onChange((page = totalPages))
+                currentPage < totalPages && onChange({ page: totalPages })
               }
               className={`p-1 rounded-md bg-muted/30 ${
                 currentPage == totalPages
