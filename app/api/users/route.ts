@@ -5,6 +5,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const users = await db.user.findMany();
     return NextResponse.json({ users: users, status: 200 });
   } catch (error) {
-    NextResponse.json({ error: "Algo deu errado!", status: 500 });
+    NextResponse.json({ error_users: "Algo deu errado!", status: 500 });
   }
 }
