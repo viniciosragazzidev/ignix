@@ -45,7 +45,7 @@ export default async function CompanyAction(_prevState: any, params: FormData) {
       Company: Company,
     };
   } else {
-    //console.log(validation.error.issues);
+    ////console.log(validation.error.issues);
     return {
       errors: validation.error.issues,
     };

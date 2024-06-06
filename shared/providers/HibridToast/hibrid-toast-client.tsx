@@ -10,12 +10,12 @@ export default function HibridToastClient(props: {
   useEffect(() => {
     if (!!props.hibrid) {
       const { type, message } = JSON.parse(props.hibrid);
-      //console.log(props.hibrid);
+      ////console.log(props.hibrid);
 
       if (type === "success" || type === "signin" || type === "signout") {
         toast.success(message);
         if (type === "signin") {
-          //console.log("aaa");
+          ////console.log("aaa");
         }
 
         if (type === "signout") {

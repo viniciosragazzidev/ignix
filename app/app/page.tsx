@@ -7,7 +7,7 @@ const App = async () => {
   if (!session) return;
 
   const user = session.user;
-  console.log(user);
+  //console.log(user);
 
   if (user?.CompanyUser?.length === 0) {
     redirect("/onboard");

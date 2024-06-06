@@ -9,11 +9,9 @@ const Onboard = async () => {
   if (!session) {
     redirect("/login");
   }
-  const user:any =  session.user;
+  const user: any = session.user;
 
-
- //console.log(session);
- 
+  ////console.log(session);
 
   if (user && user.CompanyUser?.length > 0) {
     redirect("/app");
@@ -22,9 +20,7 @@ const Onboard = async () => {
   return (
     <div className="w-screen h-screen border-b-2 border-primary">
       <Suspense fallback={<div>Loading...</div>}>
-        <OnboardContainer
-     user={user}
-        />
+        <OnboardContainer user={user} />
       </Suspense>
     </div>
   );

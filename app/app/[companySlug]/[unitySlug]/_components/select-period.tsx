@@ -13,12 +13,12 @@ import React from "react";
 
 const SelectPeriod = ({ action, period }: any) => {
   const [valuePeriod, setValuePeriod] = React.useState(period?.value || "30");
-  console.log(period?.value);
+  //console.log(period?.value);
 
   const onChange = (e: any) => {
     action({ period: e });
     setValuePeriod(e);
-    console.log(e);
+    //console.log(e);
   };
   return (
     <Select

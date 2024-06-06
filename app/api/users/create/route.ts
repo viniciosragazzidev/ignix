@@ -21,7 +21,7 @@ export async function PUT(request: NextRequest) {
     });
     return NextResponse.json({ user: updateUser, status: 200 });
   } catch (error) {
-    //console.log(error);
+    ////console.log(error);
 
     return NextResponse.json({
       error: error,

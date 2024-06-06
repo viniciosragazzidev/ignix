@@ -49,19 +49,27 @@ const OrdersTableController = ({
 
   const [pageState, setPageState] = React.useState(currentPage || "1");
   const [perPageState, setPerPageState] = React.useState(itemsPerPage || "10");
+  const [searchState, setSearchState] = React.useState("");
   const onChange = (e: any, pageChange?: string, search?: string) => {
     action({ itemsPerPage: e, page: pageChange || currentPage, search });
     setPageState(pageChange || currentPage);
     setPerPageState(e);
   };
 
-  // const [search, setSearch] = React.useState("");
-  const onChangeInputSearch = (e: any) => {
-    // const length = e.target.value.length;
+  // Função debounce
+  function debounce(func: (...args: any[]) => void, wait: number) {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (this: { someProperty: string }, ...args: any[]) {
+      // Use this.someProperty here
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
 
-    // Verifique se o comprimento é um múltiplo de 4
+  // const [search, setSearch] = React.useState("");
+  const onChangeInputSearch = debounce((e: any) => {
     action({ page: "1", itemsPerPage, search: e.target.value });
-  };
+  }, 200);
 
   return (
     <div className="w-full h-full flex flex-col gap-5">

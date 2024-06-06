@@ -14,7 +14,7 @@ const NavbarCrumb = ({ user }: { user: any }) => {
     (company: any) => company.slugId === pathnameSplited[3]
   )[0]?.name;
 
-  console.log(user);
+  //console.log(user);
 
   return (
     <>

@@ -14,20 +14,25 @@ export const getOrders = async ({
   itemsPerPage: string;
   search?: string;
 }) => {
-  const currentUnitId = await db.companyUnit.findFirst({
-    where: {
-      slugId: unitySlug,
-    },
-    select: {
-      id: true,
-    },
-  });
+  const currentUnitId = await fetch(
+    `${currentUrl}/api/companies/units/current?unitSlug=${unitySlug}`,
+    {
+      method: "GET",
+      next: {
+        revalidate: 3600,
+        tags: ["currentUnit"],
+      },
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => data.unit.id);
+
   const searchData = search ? search : "";
-  console.log(searchData, search);
+  //console.log(searchData, search);
 
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId?.id}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}` ||
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}` ||
         "",
       {
         method: "GET",
@@ -40,6 +45,6 @@ export const getOrders = async ({
 
     return orders;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };

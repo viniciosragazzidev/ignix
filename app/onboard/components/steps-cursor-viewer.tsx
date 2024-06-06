@@ -7,7 +7,7 @@ const StepsViewer = ({
 }: {
   currentOnboardStep: number;
 }) => {
-  //console.log(currentOnboardStep);
+  ////console.log(currentOnboardStep);
 
   return (
     <div className="flex w-full justify-center lg:mt-8">

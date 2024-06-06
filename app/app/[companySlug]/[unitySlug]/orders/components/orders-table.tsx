@@ -56,7 +56,7 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
       status: order.status,
     };
   });
-  console.log(orders_formated);
+  //console.log(orders_formated);
 
   return (
     <div

@@ -7,16 +7,10 @@ import step2 from "@/public/images/step2.gif";
 import step3new from "@/public/images/step3new.gif";
 import step3exist from "@/public/images/step3exist.gif";
 
-
 import StepsFormController from "./steps-form-controller";
 import { BiLoader } from "react-icons/bi";
 import { useRouter } from "next/navigation";
-const OnboardContainer = ({
-  user
-}: {
-  user: any;
-}) => {
- 
+const OnboardContainer = ({ user }: { user: any }) => {
   const [currentOnboardStep, setCurrentOnboardStep] = useState<number | null>(
     null
   );
@@ -24,8 +18,8 @@ const OnboardContainer = ({
 
   const router = useRouter();
   useEffect(() => {
-    //console.log(user);
-    
+    ////console.log(user);
+
     if (user.cpf === null) {
       setCurrentOnboardStep(1);
     }
