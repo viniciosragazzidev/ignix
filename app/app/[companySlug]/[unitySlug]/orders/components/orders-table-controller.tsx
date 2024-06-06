@@ -127,96 +127,98 @@ const OrdersTableController = ({
         </div>
       </div>
       <OrdersTable orders={orders} />{" "}
-      <div className="flex w-full justify-between py-4 border-t border-primary/5">
-        <span className="text-sm text-muted-foreground">
-          Mostrando <span className="font-bold">{itemsPerPage}</span> de{" "}
-          <span className="font-bold">{totalItems}</span> itens
-        </span>
-
-        <div className="flex gap-6 items-center">
-          <div className="flex items-center gap-1">
-            <span className="text-sm text-muted-foreground whitespace-nowrap">
-              Itens por página
-            </span>
-            <Select
-              defaultValue={perPageState + "" || "10"}
-              value={perPageState < 10 ? "10" : perPageState + ""}
-              onValueChange={(e) => {
-                onChange({ e });
-              }}
-            >
-              <SelectTrigger className="w-[80px] text-slate-100">
-                <SelectValue placeholder={10} />
-              </SelectTrigger>
-
-              <SelectContent className="bg-background">
-                <SelectItem value={"10"}>10</SelectItem>
-                <SelectItem value="20">20</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      {orders.total_pages > 1 && (
+        <div className="flex w-full justify-between py-4 border-t border-primary/5">
           <span className="text-sm text-muted-foreground">
-            Pagina {pageState} de {totalPages}
+            Mostrando <span className="font-bold">{itemsPerPage}</span> de{" "}
+            <span className="font-bold">{totalItems}</span> itens
           </span>
-          <div className="flex items-center gap-4">
-            <span
-              onClick={() => currentPage > 1 && onChange({ page: 1 })}
-              className={`p-1 rounded-md bg-muted/30 ${
-                currentPage == 1
-                  ? "opacity-40 cursor-default"
-                  : "cursor-pointer hover:text-primary hover:bg-muted/50"
-              }   transition-all active:scale-95`}
-            >
-              <span className="block">
-                <MdKeyboardDoubleArrowLeft />
+
+          <div className="flex gap-6 items-center">
+            <div className="flex items-center gap-1">
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                Itens por página
               </span>
+              <Select
+                defaultValue={perPageState + "" || "10"}
+                value={perPageState < 10 ? "10" : perPageState + ""}
+                onValueChange={(e) => {
+                  onChange({ e });
+                }}
+              >
+                <SelectTrigger className="w-[80px] text-slate-100">
+                  <SelectValue placeholder={10} />
+                </SelectTrigger>
+
+                <SelectContent className="bg-background">
+                  <SelectItem value={"10"}>10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <span className="text-sm text-muted-foreground">
+              Pagina {pageState} de {totalPages}
             </span>
-            <span
-              onClick={() =>
-                currentPage > 1 && onChange({ page: pageState - 1 })
-              }
-              className={`p-1 rounded-md bg-muted/30 ${
-                currentPage == 1
-                  ? "opacity-40 cursor-default"
-                  : "cursor-pointer hover:text-primary hover:bg-muted/50"
-              }   transition-all active:scale-95`}
-            >
-              <span className="block">
-                <MdOutlineKeyboardArrowLeft />
+            <div className="flex items-center gap-4">
+              <span
+                onClick={() => currentPage > 1 && onChange({ page: 1 })}
+                className={`p-1 rounded-md bg-muted/30 ${
+                  currentPage == 1
+                    ? "opacity-40 cursor-default"
+                    : "cursor-pointer hover:text-primary hover:bg-muted/50"
+                }   transition-all active:scale-95`}
+              >
+                <span className="block">
+                  <MdKeyboardDoubleArrowLeft />
+                </span>
               </span>
-            </span>
-            <span
-              onClick={() =>
-                currentPage < totalPages && onChange({ page: pageState + 1 })
-              }
-              className={`p-1 rounded-md bg-muted/30 ${
-                currentPage == totalPages
-                  ? "opacity-40 cursor-default"
-                  : "cursor-pointer hover:text-primary hover:bg-muted/50"
-              }   transition-all active:scale-95`}
-            >
-              <span className="block">
-                <MdOutlineKeyboardArrowRight />
+              <span
+                onClick={() =>
+                  currentPage > 1 && onChange({ page: pageState - 1 })
+                }
+                className={`p-1 rounded-md bg-muted/30 ${
+                  currentPage == 1
+                    ? "opacity-40 cursor-default"
+                    : "cursor-pointer hover:text-primary hover:bg-muted/50"
+                }   transition-all active:scale-95`}
+              >
+                <span className="block">
+                  <MdOutlineKeyboardArrowLeft />
+                </span>
               </span>
-            </span>
-            <span
-              onClick={() =>
-                currentPage < totalPages && onChange({ page: totalPages })
-              }
-              className={`p-1 rounded-md bg-muted/30 ${
-                currentPage == totalPages
-                  ? "opacity-40 cursor-default"
-                  : "cursor-pointer hover:text-primary hover:bg-muted/50"
-              }   transition-all active:scale-95`}
-            >
-              <span className="block">
-                <MdKeyboardDoubleArrowRight />
+              <span
+                onClick={() =>
+                  currentPage < totalPages && onChange({ page: pageState + 1 })
+                }
+                className={`p-1 rounded-md bg-muted/30 ${
+                  currentPage == totalPages
+                    ? "opacity-40 cursor-default"
+                    : "cursor-pointer hover:text-primary hover:bg-muted/50"
+                }   transition-all active:scale-95`}
+              >
+                <span className="block">
+                  <MdOutlineKeyboardArrowRight />
+                </span>
               </span>
-            </span>
+              <span
+                onClick={() =>
+                  currentPage < totalPages && onChange({ page: totalPages })
+                }
+                className={`p-1 rounded-md bg-muted/30 ${
+                  currentPage == totalPages
+                    ? "opacity-40 cursor-default"
+                    : "cursor-pointer hover:text-primary hover:bg-muted/50"
+                }   transition-all active:scale-95`}
+              >
+                <span className="block">
+                  <MdKeyboardDoubleArrowRight />
+                </span>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
