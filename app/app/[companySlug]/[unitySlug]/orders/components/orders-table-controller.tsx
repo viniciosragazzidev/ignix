@@ -127,7 +127,7 @@ const OrdersTableController = ({
         </div>
       </div>
       <OrdersTable orders={orders} />{" "}
-      {orders.total_pages > 1 && (
+      {orders.total_items && Number(orders.total_items) > 0 && (
         <div className="flex w-full justify-between py-4 border-t border-primary/5">
           <span className="text-sm text-muted-foreground">
             Mostrando <span className="font-bold">{itemsPerPage}</span> de{" "}
