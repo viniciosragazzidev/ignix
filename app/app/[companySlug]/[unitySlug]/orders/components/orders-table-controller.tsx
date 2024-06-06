@@ -2,8 +2,8 @@
 
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
-import React, { Suspense } from "react";
-import { BiExport, BiSearch } from "react-icons/bi";
+import React, { Suspense, useEffect } from "react";
+import { BiExport, BiLoader, BiSearch } from "react-icons/bi";
 import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
@@ -49,7 +49,6 @@ const OrdersTableController = ({
 
   const [pageState, setPageState] = React.useState(currentPage || "1");
   const [perPageState, setPerPageState] = React.useState(itemsPerPage || "10");
-  const [searchState, setSearchState] = React.useState("");
   const onChange = (e: any, pageChange?: string, search?: string) => {
     action({ itemsPerPage: e, page: pageChange || currentPage, search });
     setPageState(pageChange || currentPage);
@@ -66,10 +65,10 @@ const OrdersTableController = ({
     };
   }
 
-  // const [search, setSearch] = React.useState("");
+  const [searchLoading, setSearchLoading] = React.useState(false);
   const onChangeInputSearch = debounce((e: any) => {
     action({ page: "1", itemsPerPage, search: e.target.value });
-  }, 200);
+  }, 0);
 
   return (
     <div className="w-full h-full flex flex-col gap-5">
@@ -94,6 +93,13 @@ const OrdersTableController = ({
               className="pl-10"
               type="search"
             />
+            <span
+              className={`absolute top-1/2 animate-spin -translate-y-1/2 right-3 text-primary opacity-0  ${
+                searchLoading && "opacity-100"
+              }`}
+            >
+              <BiLoader className={`block`} />
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-4">

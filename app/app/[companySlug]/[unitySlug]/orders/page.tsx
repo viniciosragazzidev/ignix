@@ -77,27 +77,29 @@ const Orders = async ({
         orders={orders}
         period={period}
       />
-      <OrdersTableController
-        action={({
-          page,
-          itemsPerPage,
-          search,
-        }: {
-          page: string;
-          itemsPerPage: string;
-          search?: string;
-        }) => {
-          "use server";
-          return getCurrentPageAndItemsPerPage({
-            currentPage: page,
-            itemsPerPage: itemsPerPage,
-            search: search,
-          });
-        }}
-        perPage={itemsPerPage?.value}
-        page={page?.value}
-        orders={orders}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <OrdersTableController
+          action={({
+            page,
+            itemsPerPage,
+            search,
+          }: {
+            page: string;
+            itemsPerPage: string;
+            search?: string;
+          }) => {
+            "use server";
+            return getCurrentPageAndItemsPerPage({
+              currentPage: page,
+              itemsPerPage: itemsPerPage,
+              search: search,
+            });
+          }}
+          perPage={itemsPerPage?.value}
+          page={page?.value}
+          orders={orders}
+        />{" "}
+      </Suspense>
     </div>
   );
 };
