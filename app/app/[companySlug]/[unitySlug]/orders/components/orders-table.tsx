@@ -100,22 +100,28 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                   </div>
                 </td>
                 <td className="text-sm text-primary py-4 text-start ">
-                  <div className="flex flex-col ">
-                    <div className="flex gap-1">
-                      <span className="font-medium">{order.itens[0].name}</span>
-                      <span className="font-medium text-slate-100">
-                        {order.itens[0].brand}
-                      </span>
+                  {order.itens[0] ? (
+                    <div className="flex flex-col ">
+                      <div className="flex gap-1">
+                        <span className="font-medium">
+                          {order.itens[0].name}
+                        </span>
+                        <span className="font-medium text-slate-100">
+                          {order.itens[0].brand}
+                        </span>
+                      </div>
+                      <div className="flex w-full justify-between gap-3">
+                        <span className="font-medium text-muted-foreground">
+                          {order.itens[0].model}
+                        </span>
+                        <span className="text-xs text-slate-100 cursor-pointer flex items-center gap-1 mr-8  relative -top-2 ">
+                          <BsEye className="text-primary" /> Ver todos
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex w-full justify-between gap-3">
-                      <span className="font-medium text-muted-foreground">
-                        {order.itens[0].model}
-                      </span>
-                      <span className="text-xs text-slate-100 cursor-pointer flex items-center gap-1 mr-8  relative -top-2 ">
-                        <BsEye className="text-primary" /> Ver todos
-                      </span>
-                    </div>
-                  </div>
+                  ) : (
+                    <span>Sem itens</span>
+                  )}
                 </td>
                 <td className="text-[13px]  py-4 text-start  ">
                   {order.createdAt}
