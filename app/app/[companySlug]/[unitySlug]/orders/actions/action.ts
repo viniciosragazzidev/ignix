@@ -43,10 +43,14 @@ export const getOrders = async ({
         },
       }
     ).then((res) => res.json());
+    console.log({
+      orders_action: orders,
+    });
 
     return orders;
   } catch (error) {
-    console.log(error);
-    return error;
+    return {
+      error_action: error,
+    };
   }
 };
