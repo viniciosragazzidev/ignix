@@ -39,8 +39,7 @@ const OrdersTableController = ({
   page = "1",
   action,
 }: OrdersTableControllerProps) => {
-  const totalItems =
-    orders.total_items < 10 ? "0" + orders.total_items : orders.total_items;
+  const totalItems = orders.total_items;
   const itemsPerPage =
     totalItems < orders.items_per_page ? totalItems : orders.items_per_page;
 

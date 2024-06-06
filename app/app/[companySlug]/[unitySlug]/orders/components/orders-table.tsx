@@ -32,6 +32,7 @@ interface OrdersTableProps {
 const theadItems = ["ID", "Cliente", "Itens", "Entrada", "Status", "Valor", ""];
 const OrdersTable = ({ orders }: OrdersTableProps) => {
   const dataOrders = orders.orders;
+
   const orders_formated = dataOrders?.map((order: any) => {
     return {
       id: order.id,
@@ -57,7 +58,7 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
       status: order.status,
     };
   });
-  //console.log(orders_formated);
+  console.log(orders_formated);
 
   return (
     <div
