@@ -5,6 +5,7 @@ import React from "react";
 import { BsChatDots, BsEye, BsThreeDots } from "react-icons/bs";
 import { TbNotesOff } from "react-icons/tb";
 import StatusBadge, { Status } from "./status-badge";
+import { BiCalendar } from "react-icons/bi";
 
 interface DataOrdersType {
   id: string;
@@ -84,7 +85,7 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
             {orders_formated.map((order: DataOrdersType) => (
               <tr
                 key={order.id}
-                className="w-full border-b border-primary/5"
+                className="w-full border-b border-primary/5 hover:bg-accent transition-all"
               >
                 <td className="text-sm font-medium text-primary py-4 text-start">
                   {order.id}
@@ -124,7 +125,9 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                   )}
                 </td>
                 <td className="text-[13px]  py-4 text-start  ">
-                  {order.createdAt}
+                  <span className="w-full h-full  flex items-center gap-1 ">
+                    <BiCalendar className="text-primary" /> {order.createdAt}
+                  </span>
                 </td>
                 <td className="text-sm text-primary py-4 text-start ">
                   <StatusBadge status={order.status} />

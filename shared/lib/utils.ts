@@ -31,7 +31,7 @@ export function formatarData(dataISO: string) {
   return dataFormatada;
 }
 
-export function formatarCurrency(currency: string) {
+export function formatarCurrency({ currency = "0" }: { currency: string }) {
   //console.log(currency);
 
   // Remove qualquer caractere não numérico, exceto o ponto decimal

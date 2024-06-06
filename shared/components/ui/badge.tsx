@@ -17,7 +17,7 @@ const badgeVariants = cva(
         await:
           "border-transparent bg-slate-400/10 text-slate-400 shadow hover:bg-slate-500/20",
         in_progress:
-          "border-transparent bg-esmerald-400/10 text-esmerald-400 shadow hover:bg-esmerald-500/20",
+          "border-transparent bg-teal-400/10 text-teal-400 shadow hover:bg-teal-500/20",
         finalize:
           "border-transparent bg-accent text-primary shadow hover:bg-accent-medium",
         delivered: "border bg-transparent text-slate-300 shadow ",

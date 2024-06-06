@@ -1,5 +1,14 @@
 import { Badge } from "@/shared/components/ui/badge";
 import React from "react";
+import {
+  BiAlarmExclamation,
+  BiAlarmSnooze,
+  BiBlock,
+  BiCheckCircle,
+  BiParty,
+  BiRocket,
+} from "react-icons/bi";
+import { TbAlertCircle } from "react-icons/tb";
 
 export enum Status {
   PENDING = "Pendente",
@@ -10,7 +19,7 @@ export enum Status {
   FINALIZE = "Finalizado",
   CANCELLED = "Cancelado",
 }
-const StatusBadge = ({ status }: { status: Status }) => {
+const StatusBadge = ({ status }: { status: any }) => {
   const StatusA: any = [
     {
       PENDING: "Pendente",
@@ -19,10 +28,10 @@ const StatusBadge = ({ status }: { status: Status }) => {
       ANALYZE: "Em analise",
     },
     {
-      AWAIT: "Aguardando aprovacao",
+      AWAIT: "Aguardando",
     },
     {
-      IN_PROGRESS: "Em andamento",
+      IN_PROGRESS: "Iniciado",
     },
     {
       DELIVERED: "Entregue",
@@ -34,28 +43,64 @@ const StatusBadge = ({ status }: { status: Status }) => {
       CANCELLED: "Cancelado",
     },
   ];
+  console.log(status, Status.PENDING);
+
+  const currentStatus = StatusA.find((item: any) => item[status])?.[status];
   return (
     <Badge
       className="text-sm"
       variant={
-        status === Status.PENDING
+        status === "PENDING"
           ? "pending"
-          : Status.ANALYZE
+          : status === "ANALYZE"
           ? "analyze"
-          : Status.AWAIT
+          : status === "AWAIT"
           ? "await"
-          : Status.IN_PROGRESS
+          : status === "IN_PROGRESS"
           ? "in_progress"
-          : Status.DELIVERED
+          : status === "DELIVERED"
           ? "delivered"
-          : Status.FINALIZE
+          : status === "FINALIZE"
           ? "finalize"
-          : Status.CANCELLED
+          : status === "CANCELLED"
           ? "cancelled"
           : "default"
       }
     >
-      {StatusA.find((item: any) => item[status])?.[status]}
+      <span className="flex items-center gap-1">
+        <span>
+          {currentStatus === "Pendente" ? (
+            <span>
+              <TbAlertCircle />
+            </span>
+          ) : currentStatus === "Em analise" ? (
+            <span>
+              <BiAlarmExclamation />
+            </span>
+          ) : currentStatus === "Aguardando" ? (
+            <span>
+              <BiAlarmSnooze />
+            </span>
+          ) : currentStatus === "Iniciado" ? (
+            <span>
+              <BiRocket />
+            </span>
+          ) : currentStatus === "Entregue" ? (
+            <span>
+              <BiCheckCircle />
+            </span>
+          ) : currentStatus === "Finalizado" ? (
+            <span>
+              <BiParty />
+            </span>
+          ) : currentStatus === "Cancelado" ? (
+            <span>
+              <BiBlock />
+            </span>
+          ) : null}
+        </span>
+        <span>{currentStatus}</span>
+      </span>
     </Badge>
   );
 };
