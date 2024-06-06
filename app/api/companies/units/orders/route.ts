@@ -101,6 +101,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       });
     }
   } catch (err) {
-    return NextResponse.json({ error: "Algo deu errado!", status: 500 });
+    return NextResponse.json({ error: err, status: 500 });
   }
 }
