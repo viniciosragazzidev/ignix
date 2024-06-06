@@ -23,54 +23,54 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const orders = await db.unitOrder.findMany({
-      where: {
-        AND: [
-          {
-            companyUnitId: unitId,
-            createdAt: {
-              gte: new Date(Date.now() - periodInDays * 24 * 60 * 60 * 1000),
-            },
-          },
-          {
-            OR: [
-              {
-                client: {
-                  id: {
-                    contains: search,
-                    mode: "insensitive", // Default value: default
-                  },
-                },
-              },
-              {
-                client: {
-                  name: {
-                    contains: search,
-                    mode: "insensitive", // Default value: default
-                  },
-                },
-              },
-              {
-                client: {
-                  phone: {
-                    contains: search,
-                    mode: "insensitive", // Default value: default
-                  },
-                },
-              },
-              {
-                itens: {
-                  every: {
-                    name: {
-                      contains: search,
-                      mode: "insensitive", // Default value: default
-                    },
-                  },
-                },
-              },
-            ],
-          },
-        ],
-      },
+      // where: {
+      //   AND: [
+      //     {
+      //       companyUnitId: unitId,
+      //       createdAt: {
+      //         gte: new Date(Date.now() - periodInDays * 24 * 60 * 60 * 1000),
+      //       },
+      //     },
+      //     {
+      //       OR: [
+      //         {
+      //           client: {
+      //             id: {
+      //               contains: search,
+      //               mode: "insensitive", // Default value: default
+      //             },
+      //           },
+      //         },
+      //         {
+      //           client: {
+      //             name: {
+      //               contains: search,
+      //               mode: "insensitive", // Default value: default
+      //             },
+      //           },
+      //         },
+      //         {
+      //           client: {
+      //             phone: {
+      //               contains: search,
+      //               mode: "insensitive", // Default value: default
+      //             },
+      //           },
+      //         },
+      //         {
+      //           itens: {
+      //             every: {
+      //               name: {
+      //                 contains: search,
+      //                 mode: "insensitive", // Default value: default
+      //               },
+      //             },
+      //           },
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
       include: {
         client: true,
         itens: true,
