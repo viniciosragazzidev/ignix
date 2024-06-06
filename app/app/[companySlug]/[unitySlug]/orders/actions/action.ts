@@ -28,12 +28,13 @@ export const getOrders = async ({
     .then((data) => data.unit.id);
 
   const searchData = search ? search : "";
-  //console.log(searchData, search);
+  console.log(
+    `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}`
+  );
 
   try {
     const orders = await fetch(
-      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}` ||
-        "",
+      `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}`,
       {
         method: "GET",
         next: {
@@ -45,6 +46,7 @@ export const getOrders = async ({
 
     return orders;
   } catch (error) {
-    //console.log(error);
+    console.log(error);
+    return error;
   }
 };
