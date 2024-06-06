@@ -1,4 +1,6 @@
-const db = require("@/services/db");
+const { PrismaClient } = require("@prisma/client");
+
+const db = new PrismaClient();
 
 const companyUnitId = "clwz4e7yf000kprg2mvndps9o";
 const userId = "clwz4bz6l000eprg2w51l5o5s";
