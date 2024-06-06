@@ -18,8 +18,6 @@ const OnboardContainer = ({ user }: { user: any }) => {
 
   const router = useRouter();
   useEffect(() => {
-    ////console.log(user);
-
     if (user.cpf === null) {
       setCurrentOnboardStep(1);
     }

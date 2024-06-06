@@ -63,7 +63,6 @@ const OrdersTableController = ({
       page: currentPageF,
       search,
     });
-    console.log(page, e, totalItems, currentPage);
 
     setPageState(currentPageF);
     setPerPageState(e);

@@ -16,6 +16,6 @@ export const getUnitsCompany = async () => {
     const data = response;
     return data;
   } catch (error) {
-    //console.log(error);
+    return error;
   }
 };

@@ -52,13 +52,6 @@ const Orders = async ({
     itemsPerPage: itemsPerPage?.value || "10",
     search: search?.value || "",
   });
-  console.log({
-    period: period?.value || "30",
-    unitySlug: params?.unitySlug,
-    page: page?.value || "1",
-    itemsPerPage: itemsPerPage?.value || "10",
-    search: search?.value || "",
-  });
 
   return (
     <div className="w-full h-full pt-2 flex flex-col gap-7">

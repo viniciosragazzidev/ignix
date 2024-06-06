@@ -13,8 +13,6 @@ export const createUser = async (data: any) => {
     ...data,
   };
 
-  //console.log(userUpdatedData);
-
   try {
     const user = await fetch(`${currentUrl}/api/users/create`, {
       method: "PUT",
@@ -52,7 +50,5 @@ export const createCompany = async (data: any) => {
     const companyData = await company.json();
 
     return companyData;
-  } catch (error) {
-    ////console.log(error);
-  }
+  } catch (error) {}
 };

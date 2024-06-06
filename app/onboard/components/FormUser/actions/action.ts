@@ -49,7 +49,6 @@ export default async function userAction(_prevState: any, params: FormData) {
       };
     }
   } else {
-    ////console.log(validation.error.issues);
     return {
       errors: validation.error.issues,
     };

@@ -11,8 +11,6 @@ const Onboard = async () => {
   }
   const user: any = session.user;
 
-  ////console.log(session);
-
   if (user && user.CompanyUser?.length > 0) {
     redirect("/app");
   }

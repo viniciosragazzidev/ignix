@@ -32,8 +32,6 @@ export function formatarData(dataISO: string) {
 }
 
 export function formatarCurrency({ currency = "0" }: { currency: string }) {
-  //console.log(currency);
-
   // Remove qualquer caractere não numérico, exceto o ponto decimal
   const valorNumerico = parseFloat(
     currency.replace(/[^0-9,.]/g, "").replace(",", ".")

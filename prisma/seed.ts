@@ -1,13 +1,11 @@
-const { PrismaClient } = require("@prisma/client");
-
-const prismaSeed = new PrismaClient();
+const db = require("@/services/db");
 
 const companyUnitId = "clwz4e7yf000kprg2mvndps9o";
 const userId = "clwz4bz6l000eprg2w51l5o5s";
 console.log({ companyUnitId, userId });
 
 async function main() {
-  const client = await prismaSeed.unitClient.create({
+  const client = await db.unitClient.create({
     data: {
       name: "Client 11",
       document: "11000000000",
@@ -20,7 +18,7 @@ async function main() {
     },
   });
 
-  const order = await prismaSeed.unitOrder.create({
+  const order = await db.unitOrder.create({
     data: {
       client: {
         connect: { id: client.id },
@@ -37,7 +35,7 @@ async function main() {
     },
   });
 
-  const orderItem = await prismaSeed.orderItem.createMany({
+  const orderItem = await db.orderItem.createMany({
     data: [
       {
         name: "Item 11",
@@ -57,8 +55,6 @@ async function main() {
       },
     ],
   });
-
-  console.log({ order, orderItem });
 }
 
 main()
@@ -67,5 +63,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prismaSeed.$disconnect();
+    await db.$disconnect();
   });

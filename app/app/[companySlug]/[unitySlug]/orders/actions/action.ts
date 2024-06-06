@@ -28,9 +28,6 @@ export const getOrders = async ({
     .then((data) => data.unit.id);
 
   const searchData = search ? search : "";
-  console.log(
-    `${currentUrl}/api/companies/units/orders?unitId=${currentUnitId}&period=${period}&page=${page}&itemsPerPage=${itemsPerPage}&search=${searchData}`
-  );
 
   try {
     const orders = await fetch(

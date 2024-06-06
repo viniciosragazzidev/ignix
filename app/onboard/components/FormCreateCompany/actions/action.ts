@@ -39,13 +39,11 @@ export default async function CompanyAction(_prevState: any, params: FormData) {
 
     if (Company) {
       revalidatePath("/onboard/");
-      // redirect(`/app/${Company.company.slugId}`);
     }
     return {
       Company: Company,
     };
   } else {
-    ////console.log(validation.error.issues);
     return {
       errors: validation.error.issues,
     };
