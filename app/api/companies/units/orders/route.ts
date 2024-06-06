@@ -15,9 +15,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   const search = decodeURIComponent(
-    req.nextUrl.searchParams.get("search")?.toString() || " "
+    req.nextUrl.searchParams.get("search")?.toString() || ""
   );
-  //console.log(search);
 
   const offset = (page - 1) * itemsPerPage;
 
@@ -89,15 +88,19 @@ export async function GET(req: NextRequest, res: NextResponse) {
         },
       },
     }); // Correção aqui
-    return NextResponse.json({
-      total_items: totalItems,
-      items_per_page: itemsPerPage,
-      current_page: page,
-      total_pages: Math.ceil(totalItems / itemsPerPage),
-      orders,
+    if (orders) {
+      return NextResponse.json({
+        total_items: totalItems,
+        items_per_page: itemsPerPage,
+        current_page: page,
+        total_pages: Math.ceil(totalItems / itemsPerPage),
+        orders,
 
-      status: 200,
-    });
+        status: 200,
+      });
+    } else {
+      return NextResponse.json({ error: "orders not found", status: 404 });
+    }
   } catch (err) {
     return NextResponse.json({ error: err, status: 500 });
   }
