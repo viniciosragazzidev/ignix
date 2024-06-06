@@ -13,6 +13,9 @@ export async function GET(
 
     return NextResponse.json({ companyUnits });
   } catch (error) {
-    NextResponse.json({ error_companyId: "Algo deu errado!", status: 500 });
+    NextResponse.json({
+      error_companyId: "Algo deu errado ao carregar as unidades!",
+      status: 500,
+    });
   }
 }

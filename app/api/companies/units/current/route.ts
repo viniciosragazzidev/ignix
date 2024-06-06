@@ -14,6 +14,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unit not found", status: 404 });
     }
   } catch (error) {
-    NextResponse.json({ error_currentUnit: "Algo deu errado!", status: 500 });
+    NextResponse.json({
+      error_currentUnit: "Algo deu errado ao carregar a unidade!",
+      status: 500,
+    });
   }
 }
