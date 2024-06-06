@@ -59,6 +59,7 @@ const Orders = async ({
     itemsPerPage: itemsPerPage?.value || "10",
     search: search?.value || "",
   });
+  console.log(orders);
 
   return (
     <div className="w-full h-full pt-2 flex flex-col gap-7">
