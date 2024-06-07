@@ -84,7 +84,7 @@ const OrdersTableController = ({
   }, 0);
 
   return (
-    <div className="w-full h-full flex flex-col gap-5">
+    <div className="w-full h-full flex flex-col gap-5 pt-5">
       <div className="flex w-full justify-between">
         <div className="flex w-full items-center gap-4">
           <div className="select w-max p-2 rounded-full text-sm">

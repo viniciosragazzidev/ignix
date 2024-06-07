@@ -20,6 +20,29 @@ export enum Status {
   FINALIZE = "Finalizado",
   CANCELLED = "Cancelado",
 }
+export const StatusA: any = [
+  {
+    PENDING: "Pendente",
+  },
+  {
+    ANALYZE: "Em analise",
+  },
+  {
+    AWAIT: "Aguardando",
+  },
+  {
+    IN_PROGRESS: "Iniciado",
+  },
+  {
+    DELIVERED: "Entregue",
+  },
+  {
+    FINALIZE: "Finalizado",
+  },
+  {
+    CANCELLED: "Cancelado",
+  },
+];
 const StatusBadge = ({
   status,
   className,
@@ -27,30 +50,6 @@ const StatusBadge = ({
   status: any;
   className?: any;
 }) => {
-  const StatusA: any = [
-    {
-      PENDING: "Pendente",
-    },
-    {
-      ANALYZE: "Em analise",
-    },
-    {
-      AWAIT: "Aguardando",
-    },
-    {
-      IN_PROGRESS: "Iniciado",
-    },
-    {
-      DELIVERED: "Entregue",
-    },
-    {
-      FINALIZE: "Finalizado",
-    },
-    {
-      CANCELLED: "Cancelado",
-    },
-  ];
-
   const currentStatus = StatusA.find((item: any) => item[status])?.[status];
   return (
     <Badge

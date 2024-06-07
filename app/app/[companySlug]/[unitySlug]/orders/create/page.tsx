@@ -43,11 +43,11 @@ const CreateNewOrderPage = ({
   return (
     <div className="w-full relative block h-[calc(100vh-110px)] px-4 ">
       <Link
-        className="flex items-center w-min  group"
+        className="flex items-center w-min  group my-4"
         href={`/app/${params.companySlug}/${params.unitySlug}/orders`}
       >
         <BiChevronLeft className="text-primary text-xl " />
-        <span className="group-hover:text-primary text-sm group-hover:translate-x-[-4px] transition-all">
+        <span className="group-hover:text-primary text-sm group-hover:translate-x-[-4px]  transition-all">
           Voltar
         </span>
       </Link>
