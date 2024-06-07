@@ -29,7 +29,7 @@ export default async function CompanyAreaLayout({
   }
 
   return (
-    <div className="flex flex-col w-full h-max min-h-screen">
+    <div className="flex flex-col w-full  sm:h-screen sm:overflow-hidden">
       <NavbarApp user={user} />
       {children}
     </div>

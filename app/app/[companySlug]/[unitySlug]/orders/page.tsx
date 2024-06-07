@@ -9,6 +9,9 @@ import CardValueInfo from "../_components/card-value-infos";
 import OrdersInfoCards from "./components/orders-infos-cards";
 import OrdersTableController from "./components/orders-table-controller";
 import { revalidateTag } from "next/cache";
+import { Link } from "next-view-transitions";
+import { ScrollArea } from "@/shared/components/ui/scroll-area";
+// import Link from "next/link";
 
 const Orders = async ({
   params,
@@ -54,8 +57,8 @@ const Orders = async ({
   });
 
   return (
-    <div className="w-full h-full pt-2 flex flex-col gap-7">
-      <div className="w-full flex justify-between">
+    <ScrollArea className="w-full h-[calc(100vh-130px)] pt-2 flex flex-col gap-7 px-6 left-0">
+      <div className="w-full flex justify-between mb-5">
         <h1 className="text-lg font-bold">Ordens de Serviço</h1>
         <div className="w-full max-w-min flex justify-center items-center gap-4">
           <SelectPeriod
@@ -65,12 +68,16 @@ const Orders = async ({
             }}
             period={period}
           />
-          <Button
-            className="ml-auto"
-            size="sm"
+          <Link
+            href={`/app/${params.companySlug}/${params.unitySlug}/orders/create`}
           >
-            <FaPlus />
-          </Button>
+            <Button
+              className="ml-auto"
+              size="sm"
+            >
+              <FaPlus />
+            </Button>
+          </Link>
         </div>
       </div>
       <OrdersInfoCards
@@ -100,7 +107,7 @@ const Orders = async ({
           orders={orders}
         />{" "}
       </Suspense>
-    </div>
+    </ScrollArea>
   );
 };
 

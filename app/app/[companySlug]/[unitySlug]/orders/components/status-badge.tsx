@@ -1,4 +1,5 @@
 import { Badge } from "@/shared/components/ui/badge";
+import { cn } from "@/shared/lib/utils";
 import React from "react";
 import {
   BiAlarmExclamation,
@@ -19,7 +20,13 @@ export enum Status {
   FINALIZE = "Finalizado",
   CANCELLED = "Cancelado",
 }
-const StatusBadge = ({ status }: { status: any }) => {
+const StatusBadge = ({
+  status,
+  className,
+}: {
+  status: any;
+  className?: any;
+}) => {
   const StatusA: any = [
     {
       PENDING: "Pendente",
@@ -47,7 +54,7 @@ const StatusBadge = ({ status }: { status: any }) => {
   const currentStatus = StatusA.find((item: any) => item[status])?.[status];
   return (
     <Badge
-      className="text-sm"
+      className={cn(`text-sm `, className)}
       variant={
         status === "PENDING"
           ? "pending"

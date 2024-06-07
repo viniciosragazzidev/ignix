@@ -57,7 +57,7 @@ const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
             <Input
               id="name"
               type="text"
-              defaultValue={user?.name.split(" ")[0]}
+              defaultValue={user?.name?.split(" ")[0]}
               name="name"
               placeholder="Insira seu nome"
               className="w-full rounded-xl"
@@ -70,7 +70,7 @@ const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
             <Input
               id="surname"
               type="text"
-              defaultValue={user?.name.split(" ")[1]}
+              defaultValue={user?.name?.split(" ")[1]}
               name="surname"
               placeholder="Insira seu sobrenome"
               className="w-full rounded-xl"
@@ -157,7 +157,7 @@ const FormUser = ({ setCurrentOnboardStep, user }: FormUserProps) => {
           variant={"default"}
           type="submit"
         >
-          {isPending ? <BiLoader className="animate-spin" />: "Enviar"}
+          {isPending ? <BiLoader className="animate-spin" /> : "Enviar"}
         </Button>
       </form>
     </div>

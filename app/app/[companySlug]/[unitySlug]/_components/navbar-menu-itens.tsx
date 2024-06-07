@@ -44,8 +44,12 @@ const NavbarMenuItens = ({
   return (
     <ul
       className={`${
-        !params?.unitySlug ? "hidden" : "flex"
-      }  gap-1  w-full min-w-sm max-[380px]:overflow-x-auto`}
+        !params?.unitySlug ||
+        pathname ===
+          `/app/${params.companySlug}/${params.unitySlug}/orders/create`
+          ? "hidden"
+          : "flex"
+      }  gap-1  w-full min-w-sm max-[380px]:overflow-x-auto px-4`}
     >
       {navbarItens.map((item) => (
         <li
