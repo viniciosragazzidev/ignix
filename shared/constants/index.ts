@@ -8,7 +8,7 @@ export const status_itens = [
   {
     id: 2,
     name: "Em analise",
-    value: "ANALYZE",
+    value: "ANALISE",
     color: "yellow",
   },
   {
@@ -40,5 +40,28 @@ export const status_itens = [
     name: "Cancelado",
     value: "CANCELLED",
     color: "red",
+  },
+];
+
+export const garaty_days = [
+  {
+    id: 1,
+    name: "15 dias",
+    value: "15",
+  },
+  {
+    id: 2,
+    name: "30 dias",
+    value: "30",
+  },
+  {
+    id: 3,
+    name: "60 dias",
+    value: "60",
+  },
+  {
+    id: 4,
+    name: "90 dias",
+    value: "90",
   },
 ];

@@ -11,6 +11,9 @@ importers:
       '@auth/prisma-adapter':
         specifier: ^2.1.0
         version: 2.1.0(@prisma/client@5.14.0(prisma@5.14.0))
+      '@hookform/resolvers':
+        specifier: ^3.6.0
+        version: 3.6.0(react-hook-form@7.51.5(react@19.0.0-rc-6f23540c7d-20240528))
       '@prisma/client':
         specifier: 5.14.0
         version: 5.14.0(prisma@5.14.0)
@@ -71,6 +74,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-6f23540c7d-20240528
         version: 19.0.0-rc-6f23540c7d-20240528(react@19.0.0-rc-6f23540c7d-20240528)
+      react-hook-form:
+        specifier: ^7.51.5
+        version: 7.51.5(react@19.0.0-rc-6f23540c7d-20240528)
       react-icons:
         specifier: ^5.2.1
         version: 5.2.1(react@19.0.0-rc-6f23540c7d-20240528)
@@ -173,6 +179,11 @@ packages:
 
   '@floating-ui/utils@0.2.2':
     resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
+
+  '@hookform/resolvers@3.6.0':
+    resolution: {integrity: sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -1907,6 +1918,12 @@ packages:
     peerDependencies:
       react: 19.0.0-rc-6f23540c7d-20240528
 
+  react-hook-form@7.51.5:
+    resolution: {integrity: sha512-J2ILT5gWx1XUIJRETiA7M19iXHlG74+6O3KApzvqB/w8S5NQR7AbU8HVZrMALdmDgWpRPYiZJl0zx8Z4L2mP6Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+
   react-icons@5.2.1:
     resolution: {integrity: sha512-zdbW5GstTzXaVKvGSyTaBalt7HSfuK5ovrzlpyiWHAFXndXTdd/1hdDHI4xBM1Mn7YriT6aqESucFl9kEXzrdw==}
     peerDependencies:
@@ -2353,6 +2370,10 @@ snapshots:
       react-dom: 19.0.0-rc-6f23540c7d-20240528(react@19.0.0-rc-6f23540c7d-20240528)
 
   '@floating-ui/utils@0.2.2': {}
+
+  '@hookform/resolvers@3.6.0(react-hook-form@7.51.5(react@19.0.0-rc-6f23540c7d-20240528))':
+    dependencies:
+      react-hook-form: 7.51.5(react@19.0.0-rc-6f23540c7d-20240528)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -4189,6 +4210,10 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-6f23540c7d-20240528
       scheduler: 0.25.0-rc-6f23540c7d-20240528
+
+  react-hook-form@7.51.5(react@19.0.0-rc-6f23540c7d-20240528):
+    dependencies:
+      react: 19.0.0-rc-6f23540c7d-20240528
 
   react-icons@5.2.1(react@19.0.0-rc-6f23540c7d-20240528):
     dependencies:

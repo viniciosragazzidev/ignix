@@ -11,7 +11,7 @@ const Onboard = async () => {
   }
   const user: any = session.user;
 
-  if (user && user.CompanyUser?.length > 0) {
+  if (user && user.CompanyUser?.length > 0 && user.units.length > 0) {
     redirect("/app");
   }
 

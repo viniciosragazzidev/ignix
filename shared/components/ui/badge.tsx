@@ -12,7 +12,7 @@ const badgeVariants = cva(
           "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
         pending:
           "border-transparent bg-orange-400/10 text-orange-400 shadow hover:bg-orange-500/20",
-        analyze:
+        ANALISE:
           "border-transparent bg-blue-400/10 text-blue-400 shadow hover:bg-blue-500/20",
         await:
           "border-transparent bg-slate-400/10 text-slate-400 shadow hover:bg-slate-500/20",

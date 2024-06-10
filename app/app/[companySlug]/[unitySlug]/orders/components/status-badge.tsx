@@ -13,7 +13,7 @@ import { TbAlertCircle } from "react-icons/tb";
 
 export enum Status {
   PENDING = "Pendente",
-  ANALYZE = "Em análize",
+  ANALISE = "Em análize",
   AWAIT = "Aguardando aprovação",
   IN_PROGRESS = "Em andamento",
   DELIVERED = "Entregue",
@@ -25,7 +25,7 @@ export const StatusA: any = [
     PENDING: "Pendente",
   },
   {
-    ANALYZE: "Em analise",
+    ANALISE: "Em analise",
   },
   {
     AWAIT: "Aguardando",
@@ -57,8 +57,8 @@ const StatusBadge = ({
       variant={
         status === "PENDING"
           ? "pending"
-          : status === "ANALYZE"
-          ? "analyze"
+          : status === "ANALISE"
+          ? "ANALISE"
           : status === "AWAIT"
           ? "await"
           : status === "IN_PROGRESS"

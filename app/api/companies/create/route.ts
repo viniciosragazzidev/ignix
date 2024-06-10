@@ -7,6 +7,9 @@ export async function POST(request: NextRequest) {
     body.name.replace(/\s+/g, "-").toLowerCase() +
     "-" +
     Math.random().toString(36).substr(2, 5);
+  const sedeUnitSlugId =
+    body.name.replace(/\s+/g, "-").toLowerCase() + "-" + "sede";
+
   try {
     const user = await db.user.update({
       where: {
@@ -55,7 +58,7 @@ export async function POST(request: NextRequest) {
         city: body.city,
         email: body.email,
         phone: body.phone,
-        slugId: `${company.name}-sede`,
+        slugId: sedeUnitSlugId,
         state: body.state,
         companyId: company.id,
         users: {

@@ -47,3 +47,16 @@ export function formatarCurrency({ currency = "0" }: { currency: string }) {
 
   return valorFormatado;
 }
+
+export const getCurrentUnitIdByUnitSlug = ({
+  unitSlug,
+  user,
+}: {
+  unitSlug: string;
+  user: any;
+}) => {
+  const units = user?.units;
+  const unit = units?.find((unit: any) => unit.slugId === unitSlug);
+
+  return unit;
+};

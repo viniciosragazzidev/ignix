@@ -1,45 +1,36 @@
+"use server";
 import { Link } from "next-view-transitions";
 import React from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import FormOS from "./components/form-os";
+import { auth } from "@/services/auth";
+import { createOrder } from "../actions/action";
+import { permanentRedirect } from "next/navigation";
+import { setHibrid } from "@/shared/providers/HibridToast";
+import { revalidatePath } from "next/cache";
 
-const CreateNewOrderPage = ({
+const CreateNewOrderPage = async ({
   params,
 }: {
   params: { companySlug: string; unitySlug: string };
 }) => {
-  const itens = [
-    {
-      id: "1",
-      imagens: [
-        "https://images.pexels.com/photos/1149022/pexels-photo-1149022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/1149022/pexels-photo-1149022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      ],
-      name: "Computador",
-      brand: "Dell",
-      model: "XPS 13",
-      nSerie: "123456789",
-      description:
-        "Computador  não liga e apresenta rachaduras na lateral e na parte trazeira.",
-      status: "FINALIZE",
-      amount: 160,
-    },
-    {
-      id: "2",
-      imagens: [
-        "https://images.pexels.com/photos/1149022/pexels-photo-1149022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/1149022/pexels-photo-1149022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      ],
-      name: "Computador",
-      brand: "Dell",
-      model: "XPS 13",
-      nSerie: "123456789",
-      description:
-        "Computador  não liga e apresenta rachaduras na lateral e na parte trazeira.",
-      status: "PENDING",
-      amount: 160,
-    },
-  ];
+  const session = await auth();
+  const user = session?.user;
+  const createOsFunction = async ({ os }: { os: any }) => {
+    "use server";
+    const createdOs = await createOrder({ os: os });
+
+    if (createdOs.success) {
+      setHibrid({
+        type: "success",
+        message: "Seu pedido foi criado com sucesso!",
+      });
+      revalidatePath(`/app/${params.companySlug}/${params.unitySlug}/orders`);
+      permanentRedirect(
+        `/app/${params.companySlug}/${params.unitySlug}/orders`
+      );
+    }
+  };
   return (
     <div className="w-full relative block h-[calc(100vh-110px)] px-4 ">
       <Link
@@ -52,7 +43,14 @@ const CreateNewOrderPage = ({
         </span>
       </Link>
 
-      <FormOS />
+      <FormOS
+        user={user}
+        params={params}
+        action={async ({ os }: { os: any }) => {
+          "use server";
+          await createOsFunction({ os: os });
+        }}
+      />
     </div>
   );
 };

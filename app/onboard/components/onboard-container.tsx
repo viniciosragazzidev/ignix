@@ -26,6 +26,10 @@ const OnboardContainer = ({ user }: { user: any }) => {
       setCurrentOnboardStep(2);
     }
 
+    if (user.units && user.units.length === 0) {
+      setCurrentOnboardStep(2);
+    }
+
     return;
   }, [user, stepModeIngress]);
   return (

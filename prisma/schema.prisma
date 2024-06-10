@@ -108,6 +108,7 @@ model User {
   CompanyUser      CompanyUser[]
   units            CompanyUnit[]
   UnitOrder        UnitOrder[]
+  OrderItem        OrderItem[]
 
   @@map("users")
 }
@@ -173,9 +174,10 @@ model UnitOrder {
   client UnitClient  @relation(fields: [unitClientId], references: [id])
   itens  OrderItem[]
 
-  status           Status  @default(PENDING)
+  status String @default("PENDING")
+
   orderDescription String?
-  totalAmout       String?
+  totalAmount      String?
 
   createdBy User @relation(fields: [userId], references: [id])
 
@@ -196,31 +198,41 @@ model OrderItem {
   numberSerie String?
   color       String?
 
-  status Status @default(PENDING)
+  status String @default("PENDING")
 
   occurrenceDescription String
   acessories            String[] @default([])
   images                String[] @default([])
 
-  amountValue        String?
+  amountValue String?
+
+  coustAmountValue   String?
   garantyDays        String?
   finallyDescription String?
+  paymentType        String?
+  employeeId         String?
 
   createdAt   DateTime   @default(now())
   editedAt    DateTime?
   UnitOrder   UnitOrder? @relation(fields: [unitOrderId], references: [id])
   unitOrderId Int?
+  userId      String
+  User        User       @relation(fields: [userId], references: [id])
 }
 
 model UnitClient {
   id            String       @id @default(cuid())
   name          String
+  surname       String
   document      String       @unique
   address       String
   city          String
   state         String
-  email         String
+  email         String?
   phone         String
+  birthdate     DateTime?
+  gender        String?
+  createdAt     DateTime     @default(now())
   CompanyUnit   CompanyUnit? @relation(fields: [companyUnitId], references: [id])
   companyUnitId String?
   UnitOrder     UnitOrder[]

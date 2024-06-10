@@ -19,6 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   const offset = (page - 1) * itemsPerPage;
+  console.log(search);
 
   try {
     const orders = await db.unitOrder.findMany({
@@ -34,38 +35,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
             OR: [
               {
                 client: {
-                  id: {
-                    contains: search,
-                    mode: "insensitive", // Default value: default
-                  },
-                },
-              },
-              {
-                client: {
                   name: {
                     contains: search,
                     mode: "insensitive", // Default value: default
                   },
                 },
               },
-              {
-                client: {
-                  phone: {
-                    contains: search,
-                    mode: "insensitive", // Default value: default
-                  },
-                },
-              },
-              {
-                itens: {
-                  every: {
-                    name: {
-                      contains: search,
-                      mode: "insensitive", // Default value: default
-                    },
-                  },
-                },
-              },
+              // {
+              //   id: {
+              //     equals: Number(search),
+              //   },
+              // },
             ],
           },
         ],
