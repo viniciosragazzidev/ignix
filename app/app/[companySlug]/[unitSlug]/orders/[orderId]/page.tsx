@@ -18,7 +18,7 @@ const OrderPage = async ({ params }: OrderPageProps) => {
   });
   return (
     <div>
-      <h1>{order.id}</h1>
+      <h1>{order?.id}</h1>
     </div>
   );
 };
