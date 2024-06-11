@@ -572,7 +572,7 @@ const FormCreateItem = ({
                 </div>
                 <div className="grid grid-cols-1 items-center gap-4 pb-3">
                   <Label
-                    htmlFor="employee"
+                    htmlFor="employeeId"
                     className="text-left flex items-center gap-1 text-primary"
                   >
                     Funcionário responsável
