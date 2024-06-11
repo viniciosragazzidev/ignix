@@ -16,5 +16,7 @@ export const getCurrentUnit = async (unitSlug: string) => {
   )
     .then((res) => res.json())
     .then((data) => data.unit);
+  console.log(currentUnitId);
+
   return currentUnitId;
 };
