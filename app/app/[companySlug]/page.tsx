@@ -10,7 +10,7 @@ import { auth } from "@/services/auth";
 const App = async ({
   params,
 }: {
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }) => {
   const units = await getUnitsCompany();
 

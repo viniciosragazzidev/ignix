@@ -1,7 +1,5 @@
-import { auth } from "@/services/auth";
-import NavbarApp from "../_components/navbar-app";
+"use server";
 import NavbarMenuItens from "./_components/navbar-menu-itens";
-import SelectPeriod from "./_components/select-period";
 
 export default async function UnitAreaLayout({
   children,
@@ -10,7 +8,7 @@ export default async function UnitAreaLayout({
   children: React.ReactNode;
   params: {
     companySlug: string;
-    unitySlug: string;
+    unitSlug: string;
   };
 }) {
   return (

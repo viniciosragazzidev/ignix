@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache";
 const CreateNewOrderPage = async ({
   params,
 }: {
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }) => {
   const session = await auth();
   const user = session?.user;
@@ -25,17 +25,15 @@ const CreateNewOrderPage = async ({
         type: "success",
         message: "Seu pedido foi criado com sucesso!",
       });
-      revalidatePath(`/app/${params.companySlug}/${params.unitySlug}/orders`);
-      permanentRedirect(
-        `/app/${params.companySlug}/${params.unitySlug}/orders`
-      );
+      revalidatePath(`/app/${params.companySlug}/${params.unitSlug}/orders`);
+      permanentRedirect(`/app/${params.companySlug}/${params.unitSlug}/orders`);
     }
   };
   return (
     <div className="w-full relative block h-[calc(100vh-110px)] px-4 ">
       <Link
         className="flex items-center w-min  group my-4"
-        href={`/app/${params.companySlug}/${params.unitySlug}/orders`}
+        href={`/app/${params.companySlug}/${params.unitSlug}/orders`}
       >
         <BiChevronLeft className="text-primary text-xl " />
         <span className="group-hover:text-primary text-sm group-hover:translate-x-[-4px]  transition-all">

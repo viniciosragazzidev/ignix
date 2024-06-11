@@ -6,6 +6,7 @@ import { BsChatDots, BsEye, BsThreeDots } from "react-icons/bs";
 import { TbNotesOff } from "react-icons/tb";
 import StatusBadge, { Status } from "./status-badge";
 import { BiCalendar } from "react-icons/bi";
+import { Link } from "next-view-transitions";
 
 interface DataOrdersType {
   id: string;
@@ -27,10 +28,14 @@ interface DataOrdersType {
 }
 interface OrdersTableProps {
   orders: any;
+  params: {
+    unitSlug: string;
+    companySlug: string;
+  };
 }
 
 const theadItems = ["ID", "Cliente", "Itens", "Entrada", "Status", "Valor", ""];
-const OrdersTable = ({ orders }: OrdersTableProps) => {
+const OrdersTable = ({ orders, params }: OrdersTableProps) => {
   const dataOrders = orders.orders;
 
   const orders_formated = dataOrders?.map((order: any) => {
@@ -136,7 +141,11 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                   {order.totalAmount}
                 </td>
                 <td className="text-sm text-primary py-4 cursor-pointer text-start ">
-                  <BsThreeDots className="text-primary" />
+                  <Link
+                    href={`/app/${params.companySlug}/${params.unitSlug}/orders/${order.id}`}
+                  >
+                    <BsThreeDots className="text-primary" />
+                  </Link>
                 </td>
               </tr>
             ))}

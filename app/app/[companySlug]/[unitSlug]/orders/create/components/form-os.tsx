@@ -58,7 +58,7 @@ const FormOS = ({
   action,
 }: {
   user: any;
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
   action: any;
 }) => {
   const [openCreateItem, setOpenCreateItem] = React.useState(false);
@@ -85,7 +85,7 @@ const FormOS = ({
 
   const onSubmit = async (data: any) => {
     const companyUnitId = getCurrentUnitIdByUnitSlug({
-      unitSlug: params.unitySlug,
+      unitSlug: params.unitSlug,
       user: user,
     });
     const client = {

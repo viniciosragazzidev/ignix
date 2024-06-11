@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 import LogoutButton from "@/shared/components/logout-button";
 import Logo from "@/shared/components/Logo";
 import { DropdownMenuAvatarProfile } from "@/shared/components/popover-avatar-profile";
-import NavbarMenuItens from "./[unitySlug]/_components/navbar-menu-itens";
+import NavbarMenuItens from "./[unitSlug]/_components/navbar-menu-itens";
 import NavbarApp from "./_components/navbar-app";
 
 interface companyAreaProps {
   children: React.ReactNode;
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }
 export default async function CompanyAreaLayout({
   children,

@@ -8,11 +8,11 @@ import React, { use, useEffect } from "react";
 const NavbarMenuItens = ({
   params,
 }: {
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }) => {
   const pathname = usePathname();
   const pathnameSlice = pathname?.split("/");
-  const currentDefaultUrl = `/app/${params?.companySlug}/${params?.unitySlug}`;
+  const currentDefaultUrl = `/app/${params?.companySlug}/${params?.unitSlug}`;
   const navbarItens = [
     {
       name: "Dashboard",
@@ -44,9 +44,9 @@ const NavbarMenuItens = ({
   return (
     <ul
       className={`${
-        !params?.unitySlug ||
+        !params?.unitSlug ||
         pathname ===
-          `/app/${params.companySlug}/${params.unitySlug}/orders/create`
+          `/app/${params.companySlug}/${params.unitSlug}/orders/create`
           ? "hidden"
           : "flex"
       }  gap-1  w-full min-w-sm max-[380px]:overflow-x-auto px-4`}

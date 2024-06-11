@@ -32,11 +32,14 @@ interface OrdersTableControllerProps {
     itemsPerPage: string;
     search?: string;
   }) => Promise<{ currentPage: string; itemsPerPage: string }>;
+  params: {
+    unitSlug: string;
+    companySlug: string;
+  };
 }
 const OrdersTableController = ({
   orders,
-  perPage = "10",
-  page = "1",
+  params,
   action,
 }: OrdersTableControllerProps) => {
   const totalItems = orders.total_items;
@@ -124,7 +127,10 @@ const OrdersTableController = ({
           </Button>
         </div>
       </div>
-      <OrdersTable orders={orders} />{" "}
+      <OrdersTable
+        params={params}
+        orders={orders}
+      />{" "}
       {orders.total_items && Number(orders.total_items) > 0 && (
         <div className="flex w-full justify-between py-4 border-t border-primary/5">
           <span className="text-sm text-muted-foreground">

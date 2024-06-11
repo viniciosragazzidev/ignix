@@ -16,7 +16,7 @@ import { ScrollArea } from "@/shared/components/ui/scroll-area";
 const Orders = async ({
   params,
 }: {
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }) => {
   const getPeriod = async ({ period }: { period: string }) => {
     "use server";
@@ -50,7 +50,7 @@ const Orders = async ({
 
   const orders = await getOrders({
     period: period?.value || "30",
-    unitySlug: params?.unitySlug,
+    unitSlug: params?.unitSlug,
     page: page?.value || "1",
     itemsPerPage: itemsPerPage?.value || "10",
     search: search?.value || "",
@@ -69,7 +69,7 @@ const Orders = async ({
             period={period}
           />
           <Link
-            href={`/app/${params.companySlug}/${params.unitySlug}/orders/create`}
+            href={`/app/${params.companySlug}/${params.unitSlug}/orders/create`}
           >
             <Button
               className="ml-auto"
@@ -86,6 +86,7 @@ const Orders = async ({
       />
       <Suspense fallback={<div>Loading...</div>}>
         <OrdersTableController
+          params={params}
           action={({
             page,
             itemsPerPage,

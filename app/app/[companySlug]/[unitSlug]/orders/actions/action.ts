@@ -1,34 +1,26 @@
 "use server";
 import db from "@/services/db";
 import { setHibrid } from "@/shared/providers/HibridToast";
+import { getCurrentUnit } from "../../actions/action";
 
 const currentUrl = process.env.NEXT_PUBLIC_APP_URL;
 
 export const getOrders = async ({
   period,
-  unitySlug,
+  unitSlug,
   page,
   itemsPerPage,
   search,
 }: {
   period: string;
-  unitySlug: string;
+  unitSlug: string;
   page: string;
   itemsPerPage: string;
   search?: string;
 }) => {
-  const currentUnitId = await fetch(
-    `${currentUrl}/api/companies/units/current?unitSlug=${unitySlug}`,
-    {
-      method: "GET",
-      next: {
-        revalidate: 3600,
-        tags: ["currentUnit"],
-      },
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => data.unit.id);
+  const currentUnit = await getCurrentUnit(unitSlug);
+
+  const currentUnitId = currentUnit.id;
 
   const searchData = search ? search : "";
 
@@ -138,5 +130,31 @@ export const createOrder = async ({ os }: { os: any }) => {
     return {
       error: error,
     };
+  }
+};
+
+export const getOrder = async ({
+  orderId,
+  unitId,
+}: {
+  orderId: string;
+  unitId: any;
+}) => {
+  try {
+    const currentOrder = await fetch(
+      `http://localhost:3000/api/companies/units/orders/${orderId}?unitId=${unitId}`,
+      {
+        method: "GET",
+        next: {
+          revalidate: 3600,
+          tags: ["currentOrder", unitId, orderId],
+        },
+      }
+    ).then((res) => res.json());
+    console.log(currentOrder);
+
+    return currentOrder.order;
+  } catch (error) {
+    console.log(error);
   }
 };

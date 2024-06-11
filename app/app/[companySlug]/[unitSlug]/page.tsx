@@ -3,12 +3,12 @@ import React from "react";
 const UnitPage = ({
   params,
 }: {
-  params: { companySlug: string; unitySlug: string };
+  params: { companySlug: string; unitSlug: string };
 }) => {
   return (
     <>
       <h1>
-        {params.unitySlug} {params.companySlug}
+        {params.unitSlug} {params.companySlug}
       </h1>
     </>
   );
