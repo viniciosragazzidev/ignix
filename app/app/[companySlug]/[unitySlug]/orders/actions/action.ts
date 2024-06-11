@@ -1,5 +1,6 @@
 "use server";
 import db from "@/services/db";
+import { setHibrid } from "@/shared/providers/HibridToast";
 
 const currentUrl = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -64,24 +65,41 @@ export const createOrder = async ({ os }: { os: any }) => {
   };
 
   try {
-    const createClient = await db.unitClient.create({
-      data: {
-        ...client,
-
-        CompanyUnit: {
-          connect: {
-            id: os.companyUnitId,
-          },
-        },
+    // Verifica se o cliente já existe no banco de dados
+    const existingClient = await db.unitClient.findFirst({
+      where: {
+        document: client.document,
       },
     });
 
-    const createOrder = await db.unitOrder.create({
+    let clientId;
+
+    if (existingClient) {
+      // Se o cliente já existir, usamos o ID do cliente existente
+      clientId = existingClient.id;
+    } else {
+      // Se o cliente não existir, criamos um novo cliente
+      const createdClient = await db.unitClient.create({
+        data: {
+          ...client,
+          CompanyUnit: {
+            connect: {
+              id: os.companyUnitId,
+            },
+          },
+        },
+      });
+
+      clientId = createdClient.id;
+    }
+
+    // Cria o pedido usando o ID do cliente (existente ou recém-criado)
+    const createdOrder = await db.unitOrder.create({
       data: {
         ...order,
         client: {
           connect: {
-            id: createClient.id,
+            id: clientId,
           },
         },
         createdBy: {
@@ -97,20 +115,22 @@ export const createOrder = async ({ os }: { os: any }) => {
       },
     });
 
+    // Cria os itens do pedido
     const createItensOrder = await db.orderItem.createMany({
-      data: [
-        ...itens.map((item: any) => ({
-          ...item,
-          unitOrderId: createOrder.id,
-          userId: os.createById,
-        })),
-      ],
+      data: itens.map((item: any) => ({
+        ...item,
+        unitOrderId: createdOrder.id,
+        userId: os.createById,
+      })),
     });
 
-    console.log("created order");
+    setHibrid({
+      message: "Seu pedido foi criado com sucesso!",
+      type: "success",
+    });
     return {
       success: true,
-      orderId: createOrder.id,
+      orderId: createdOrder.id,
     };
   } catch (error) {
     console.log(error);
